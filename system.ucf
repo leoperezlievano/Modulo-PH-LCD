@@ -1,0 +1,11 @@
+# ==== Clock inputs (CLK) ====
+NET "clk" LOC = "P84";
+NET  led  LOC = "P39";
+NET  rst  LOC = "P105" | PULLUP;
+
+# ==== UART ====
+NET "uart_rxd" LOC = "P69";
+NET "uart_txd" LOC = "P70";
+
+# ==== EVERLOOP ====
+NET "led_control"  LOC = "P56";

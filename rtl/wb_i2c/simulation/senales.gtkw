@@ -1,0 +1,51 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Thu Apr  6 15:32:38 2017
+[*]
+[dumpfile] "/media/roberto/D/Unal/Digital II/lm32_matrix-creator/rtl/wb_i2c/simulation/i2c_master_wb_TB.vcd"
+[dumpfile_mtime] "Thu Apr  6 15:31:24 2017"
+[dumpfile_size] 431564
+[savefile] "/media/roberto/D/Unal/Digital II/lm32_matrix-creator/rtl/wb_i2c/simulation/senales.gtkw"
+[timestart] 0
+[size] 1313 744
+[pos] -314 -117
+*-27.000000 191900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] i2c_master_wb_TB.
+[treeopen] i2c_master_wb_TB.test.
+[sst_width] 225
+[signals_width] 192
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+i2c_master_wb_TB.test.clk
+i2c_master_wb_TB.test.reset
+@200
+-Señales Wb
+@28
+i2c_master_wb_TB.test.wb_stb_i
+i2c_master_wb_TB.test.wb_cyc_i
+i2c_master_wb_TB.test.wb_we_i
+[color] 2
+i2c_master_wb_TB.test.wb_wr
+[color] 2
+i2c_master_wb_TB.test.wb_rd
+i2c_master_wb_TB.test.ack
+@22
+i2c_master_wb_TB.test.wb_adr_i[31:0]
+i2c_master_wb_TB.test.wb_dat_i[31:0]
+i2c_master_wb_TB.test.wb_dat_o[31:0]
+@200
+-Señales I2C
+@28
+i2c_master_wb_TB.test.rw
+@22
+i2c_master_wb_TB.test.i2c0.addr[6:0]
+@28
+i2c_master_wb_TB.test.i2c0.busy
+i2c_master_wb_TB.test.i2c0.ena
+i2c_master_wb_TB.test.i2c0.ack_error
+i2c_master_wb_TB.test.i2c0.sda
+@29
+i2c_master_wb_TB.test.i2c0.scl
+[pattern_trace] 1
+[pattern_trace] 0
