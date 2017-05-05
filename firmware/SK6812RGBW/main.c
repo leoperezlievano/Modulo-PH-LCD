@@ -92,9 +92,10 @@ void commandUart_TaskHandler(void)
 }
 */
 int main(void)
-{
-	pintar_letra_pantalla(00,00,65);
-	pintar_letra_pantalla(00,00,67);		
-		
+{	
+	uSleep(100);
+	prender_pantalla();
+	
+	
     	return 0;
 }

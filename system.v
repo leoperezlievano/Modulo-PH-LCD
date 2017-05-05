@@ -43,7 +43,7 @@ wire [31:0]  lm32i_adr,
              uart0_adr,
              i2c0_adr,
              timer0_adr,
-             pantalla0_adr,
+             //pantalla0_adr,
              //gpio0_adr,
              bram0_adr;
 
@@ -58,8 +58,8 @@ wire [31:0]  lm32i_dat_r,
              i2c0_dat_w,
              timer0_dat_r,
              timer0_dat_w,
-             pantalla0_dat_r,
-	     pantalla0_dat_w,
+             //pantalla0_dat_r,
+	     //pantalla0_dat_w,
              //gpio0_dat_r,
              //gpio0_dat_w,
              bram0_dat_r,
@@ -70,7 +70,7 @@ wire [3:0]   lm32i_sel,
              uart0_sel,
              i2c0_sel,
              timer0_sel,
-             pantalla0_sel,
+             //pantalla0_sel,
              //gpio0_sel,
              bram0_sel;
 
@@ -79,7 +79,7 @@ wire         lm32i_we,
              uart0_we,
              i2c0_we,
              timer0_we,
-             pantalla0_we,
+             //pantalla0_we,
              //gpio0_we,
              bram0_we;
 
@@ -88,7 +88,7 @@ wire         lm32i_cyc,
              uart0_cyc,
              i2c0_cyc,
              timer0_cyc,
-             pantalla0_cyc,
+             //pantalla0_cyc,
              //gpio0_cyc,
              bram0_cyc;
 
@@ -98,7 +98,7 @@ wire         lm32i_stb,
              uart0_stb,
              i2c_stb,
              timer0_stb,
-             pantalla0_stb,
+             //pantalla0_stb,
              //gpio0_stb,
              bram0_stb;
 
@@ -107,7 +107,7 @@ wire         lm32i_ack,
              uart0_ack,
              i2c0_ack,
              timer0_ack,
-             pantalla0_ack,
+             //pantalla0_ack,
              //gpio0_ack,
              bram0_ack;
 
@@ -144,8 +144,8 @@ conbus #(
 	.s0_addr(3'b000),// bram      	0x00000000 
 	.s1_addr(3'b001),// uart0     	0x20000000 
 	.s2_addr(3'b010),// timer	0x40000000 
-	.s3_addr(3'b011),// I2C		0x60000000 
-	.s4_addr(3'b100) // pantalla	0x80000000 
+	.s3_addr(3'b011)// I2C		0x60000000 
+	//.s4_addr(3'b100) // pantalla	0x80000000 
 	//.s5_addr(3'b101) // pH    	0xA0000000
 	//.s5_addr(3'b110) // gpio  	0xC0000000 
 ) conbus0(
@@ -215,9 +215,9 @@ conbus #(
 	.s3_we_o(   i2c0_we    ),
 	.s3_cyc_o(  i2c0_cyc   ),
 	.s3_stb_o(  i2c0_stb   ),
-	.s3_ack_i(  i2c0_ack   ),
+	.s3_ack_i(  i2c0_ack   )
 	// Slave4 Pantalla
-
+	/*
 	.s4_dat_i(  pantalla0_dat_r ),
 	.s4_dat_o(  pantalla0_dat_w ),
 	.s4_adr_o(  pantalla0_adr   ),
@@ -225,7 +225,7 @@ conbus #(
 	.s4_we_o(   pantalla0_we    ),
 	.s4_cyc_o(  pantalla0_cyc   ),
 	.s4_stb_o(  pantalla0_stb   ),
-	.s4_ack_i(  pantalla0_ack   )
+	.s4_ack_i(  pantalla0_ack   )	*/
 	/* Slave5 pH
 	.s5_dat_i(  ph0_dat_r ),
 	.s5_dat_o(  ph0_dat_w ),
@@ -350,8 +350,8 @@ wb_timer #(
 //---------------------------------------------------------------------------
 // i2c
 //---------------------------------------------------------------------------
-wire i2c0_sda;
-wire i2c0_scl;
+wire sda;
+wire scl;
 
 i2c_master_wb i2c0 (
 	  .clk(clk),
@@ -366,8 +366,8 @@ i2c_master_wb i2c0 (
 	  .wb_sel_i( i2c0_sel ),
 	  .wb_ack_o( i2c0_ack ),  
 	  //
-	  .sda( i2c0_sda), 
-	  .scl( i2c0_scl)
+	  .sda(sda), 
+	  .scl(scl)
 );
 /*
 //---------------------------------------------------------------------------
@@ -396,7 +396,7 @@ wb_gpio gpio0 (
 //---------------------------------------------------------------------------
 // Pantalla
 //---------------------------------------------------------------------------
-
+/*
 pantalla_wb pantalla0 (
 	  .clk(clk),
 	  .reset( ~rst), 
@@ -410,7 +410,7 @@ pantalla_wb pantalla0 (
 	  .wb_sel_i( pantalla0_sel ),
 	  .wb_ack_o( pantalla0_ack )
 );
-
+*/
 
 //---------------------------------------------------------------------------
 // pH

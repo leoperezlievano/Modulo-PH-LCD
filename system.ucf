@@ -1,11 +1,17 @@
 # ==== Clock inputs (CLK) ====
 NET "clk" LOC = "P84";
-NET  led  LOC = "P39";
-NET  rst  LOC = "P105" | PULLUP;
+NET "led"  LOC = "P39";
+NET "rst"  LOC = "P105"  | PULLUP;
+
+NET  "rst" CLOCK_DEDICATED_ROUTE = FALSE;
 
 # ==== UART ====
 NET "uart_rxd" LOC = "P69";
 NET "uart_txd" LOC = "P70";
 
-# ==== EVERLOOP ====
-NET "led_control"  LOC = "P56";
+# ==== I2C ====
+NET "scl"		LOC = "P75" | IOSTANDARD = LVCMOS33;
+NET "sda"		LOC = "P74" | IOSTANDARD = LVCMOS33;
+
+
+

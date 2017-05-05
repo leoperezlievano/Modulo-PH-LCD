@@ -115,10 +115,13 @@ typedef struct {
 void i2c_write_data(uint8_t addr_wr, uint8_t data);
 uint8_t i2c_read_data(uint8_t addr_rd);
 
+//Este es para probar únicamente el I2C
+void prender_pantalla(void); //para inicializar la pantalla
+
 /***************************************************************************
  * Pantalla0
  */
- 
+ /*
  typedef struct {
         volatile uint32_t rd;
         volatile uint32_t wr;
@@ -128,10 +131,10 @@ uint8_t i2c_read_data(uint8_t addr_rd);
 	volatile uint32_t addr_rd;
  } pantalla_t;
  
- void prender_pantalla(void); //para inicializar la pantalla
+
  void vaciar_pantalla(void);
  void pintar_letra_pantalla (uint8_t posx_t,uint8_t posy_t, uint8_t letra);
-
+*/
 /***************************************************************************
  * Funciones pH
  */
@@ -144,7 +147,7 @@ uint8_t i2c_read_data(uint8_t addr_rd);
 extern timerH_t 	*timer0;
 extern uart_t   	*uart0; 
 extern i2c_t   		*i2c0;
-extern pantalla_t 	*pantalla0;
+//extern pantalla_t 	*pantalla0;
 extern uint32_t 	*sram0; 
 
 #endif // SPIKEHW_H

@@ -1,5 +1,9 @@
 XILINXCADROOT   = /opt/Xilinx/14.7/ISE_DS/ISE/
 
+DESIGN          = system
+USER		= pi
+IP		= 192.168.43.222
+
 VINCDIR=                                  \
 	-I../rtl/wb_conbus                 \
 	-I../rtl/lm32                      \
@@ -37,12 +41,12 @@ SRC=                                      \
 	../rtl/wb_conbus/conbus.v          \
 	../rtl/wb_conbus/conbus_arb.v      \
 	../rtl/wb_i2c/i2c_master_wb.v	\
-	../rtl/wb_i2c/i2c_master.v	\
-	../rtl/pantalla_wb/pantalla_wb.v	\
-	../rtl/pantalla_wb/pantalla.v		\
-	../rtl/pantalla_wb/control_pantalla.v	\
-	../rtl/pantalla_wb/RAM_pantalla.v \
-	../rtl/pantalla_wb/ROM_fuente.v	
+	../rtl/wb_i2c/i2c_master.v	
+#	../rtl/pantalla_wb/pantalla_wb.v	\
+#	../rtl/pantalla_wb/pantalla.v		\
+#	../rtl/pantalla_wb/control_pantalla.v	\
+#	../rtl/pantalla_wb/RAM_pantalla.v \
+#	../rtl/pantalla_wb/ROM_fuente.v	
 #	../rtl/wb_gpio/wb_gpio.v           \
 	
 
@@ -151,4 +155,10 @@ clean:
 
 .PHONY: clean view
 
+####################################################################
+# Send to Matrix Creator 
+
+config: $(DESIGN).bit
+	scp $(DESIGN).bit $(USER)@$(IP):/home/pi
+	ssh $(USER)@$(IP) sudo xc3sprog -c matrix_pi $(DESIGN).bit -p 1
 

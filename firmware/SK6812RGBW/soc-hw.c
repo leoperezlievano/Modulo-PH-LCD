@@ -5,7 +5,7 @@
 uart_t       	*uart0       	= (uart_t *)       	0x20000000;
 timerH_t     	*timer0   	= (timerH_t *)     	0x40000000;
 i2c_t	  	*i2c0		= (i2c_t *)		0x60000000;
-pantalla_t    *pantalla0    = (pantalla_t*)      0x80000000;
+//pantalla_t    *pantalla0    = (pantalla_t*)      0x80000000;
 //gpio_t       *gpio0       = (gpio_t *)       	0x40000000;
 
 isr_ptr_t isr_table[32];
@@ -181,6 +181,31 @@ uint8_t i2c_read_data(uint8_t addr_rd){
  */
  
 void prender_pantalla(void){
+	//Estos son los pasos que se recomiendan en el datasheet
+	i2c_write_data(0x3C,0xAE); 	//Display Off
+	i2c_write_data(0x3C,0xA8);	//Set MUX Ratio
+	i2c_write_data(0x3C,0x3F);
+	i2c_write_data(0x3C,0xD3);	//Set Display Offset
+	i2c_write_data(0x3C,0x00);
+	i2c_write_data(0x3C,0x40);	//Set Display Start Line
+	i2c_write_data(0x3C,0xA0);	//Set Segment re-map
+	i2c_write_data(0x3C,0xC0);	//Set COM Output Scan Direction
+	i2c_write_data(0x3C,0xDA);	//Set COM Pins hardware configuration
+	i2c_write_data(0x3C,0x02);	
+	i2c_write_data(0x3C,0x81);	//Set Contrast Control
+	i2c_write_data(0x3C,0x7F);
+	i2c_write_data(0x3C,0xA4);	//Disable Entire Display On
+	//i2c_write_data(0x3C,0xA6);	//Set Normal Display
+	i2c_write_data(0x3C,0xA7);	//Set Inverse Display
+	i2c_write_data(0x3C,0xD5);	//Set Osc Frequency
+	i2c_write_data(0x3C,0x80);
+	i2c_write_data(0x3C,0x8D);	//Enable charge pump regulator
+	i2c_write_data(0x3C,0x14);
+	i2c_write_data(0x3C,0xAF);	//Display On	
+};
+
+ /*
+void prender_pantalla(void){
 	i2c_write_data(0x3C,0xAE); //OFF PANTALLA 
 	i2c_write_data(0x3C,0X20); // MODO DE DIRECCIONAMIENTO
 	i2c_write_data(0x3C,0x00);
@@ -195,7 +220,8 @@ void prender_pantalla(void){
         i2c_write_data(0x3C,0xA6); // SET DISPLAY MODE. A6=NORMAL
         i2c_write_data(0x3C,0xA8); // SET MUX RATIO
         i2c_write_data(0x3C,0x3F);
-        i2c_write_data(0x3C,0xA4); // OUTPUT RAM TO DISPLAY
+        i2c_write_data(0x3C,0xA4);
+        i2c_write_data(0x3C,0xA5); // OUTPUT RAM TO DISPLAY
         i2c_write_data(0x3C,0xD3); // DISPLAY OFFSET. 00= NO
         i2c_write_data(0x3C,0x00);
         i2c_write_data(0x3C,0xD5); //---SET DISPLAY CLOCK  DIVIDE RATIO /OSCILATOR
@@ -209,8 +235,8 @@ void prender_pantalla(void){
         i2c_write_data(0x3C,0x8D); //SET DC-DC ENABLE
         i2c_write_data(0x3C,0x14); 
         i2c_write_data(0x3C,0xAF); //ON PANTALLA
-};
-
+};*/	
+/*
 void vaciar_pantalla(void){
         
         uSleep(50); 
@@ -225,4 +251,4 @@ void pintar_letra_pantalla (uint8_t posx_t,uint8_t posy_t, uint8_t letra){
 	pantalla0->wr		= 0;
 	uSleep(1);
 }; 
-
+*/
