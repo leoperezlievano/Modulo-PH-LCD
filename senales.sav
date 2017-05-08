@@ -1,19 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Tue May  2 14:17:10 2017
+[*] Mon May  8 18:37:10 2017
 [*]
 [dumpfile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/simulation/system_tb.vcd"
-[dumpfile_mtime] "Tue May  2 14:11:42 2017"
-[dumpfile_size] 272166065
+[dumpfile_mtime] "Mon May  8 18:36:25 2017"
+[dumpfile_size] 267707920
 [savefile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/senales.sav"
-[timestart] 17536000
+[timestart] 0
 [size] 1301 744
 [pos] -302 -117
-*-20.000000 19770000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.000000 292000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] system_tb.
 [treeopen] system_tb.dut.
-[treeopen] system_tb.dut.pantalla0.
-[treeopen] system_tb.dut.pantalla0.pantalla0.
+[treeopen] system_tb.dut.i2c0.
 [sst_width] 225
 [signals_width] 190
 [sst_expanded] 1
@@ -22,44 +21,27 @@
 system_tb.dut.clk
 system_tb.dut.rst
 @200
--Señales pantalla_wb
+-Señales Wb I2C
 @28
-system_tb.dut.pantalla0.wb_stb_i
-system_tb.dut.pantalla0.wb_cyc_i
-system_tb.dut.pantalla0.wb_we_i
-system_tb.dut.pantalla0.wb_wr
-system_tb.dut.pantalla0.rd
+system_tb.dut.i2c0.wb_stb_i
+system_tb.dut.i2c0.wb_cyc_i
+system_tb.dut.i2c0.wb_we_i
 @22
-system_tb.dut.pantalla0.wb_adr_i[31:0]
-system_tb.dut.pantalla0.wb_dat_i[31:0]
-system_tb.dut.pantalla0.wb_dat_o[31:0]
+system_tb.dut.i2c0.wb_adr_i[31:0]
+system_tb.dut.i2c0.wb_dat_i[31:0]
+system_tb.dut.i2c0.wb_dat_o[31:0]
 @200
--Señales pantalla
+-Señales I2C
 @28
-system_tb.dut.pantalla0.pantalla0.control.wr
+system_tb.dut.i2c0.i2c0.busy
+system_tb.dut.i2c0.i2c0.ena
+system_tb.dut.i2c0.i2c0.rw
 @22
-system_tb.dut.pantalla0.pantalla0.control.posx[6:0]
-system_tb.dut.pantalla0.pantalla0.control.posy[5:0]
-@24
-system_tb.dut.pantalla0.pantalla0.control.caracter[6:0]
-system_tb.dut.pantalla0.pantalla0.control.state[2:0]
-@22
-system_tb.dut.pantalla0.pantalla0.control.ncolumna[2:0]
-system_tb.dut.pantalla0.pantalla0.control.btc[2:0]
-@200
--Señales_RAM
+system_tb.dut.i2c0.i2c0.addr[6:0]
+system_tb.dut.i2c0.i2c0.data_tx[7:0]
 @28
-system_tb.dut.pantalla0.pantalla0.ram.d_in
-system_tb.dut.pantalla0.pantalla0.ram.wr
-@22
-system_tb.dut.pantalla0.pantalla0.ram.addr_wr[12:0]
-@200
--Señales ROM
-@22
-system_tb.dut.pantalla0.pantalla0.rom.addr_rd[9:0]
+system_tb.dut.i2c0.i2c0.sda
 @29
-system_tb.dut.pantalla0.pantalla0.rom.rd
-@22
-system_tb.dut.pantalla0.pantalla0.rom.d_out[7:0]
+system_tb.dut.i2c0.i2c0.scl
 [pattern_trace] 1
 [pattern_trace] 0

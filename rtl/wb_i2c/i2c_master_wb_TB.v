@@ -33,13 +33,13 @@ module i2c_master_wb_TB;
 		.wb_dat_o(wb_dat_o),
 	// I2C Wires
 		.sda(i2c_sda),
-		.scl(i2c_sda)
+		.scl(i2c_scl)
 	);
    	
 	always #1 clk = ~clk; 
 	
 	initial begin
-        	#40000
+        	#90000
        	$finish;
    	end
 	
@@ -60,7 +60,7 @@ module i2c_master_wb_TB;
 		#10
 		rst = 1'b0;
 		#10
-		wb_dat_i = 32'h00000001;
+		wb_dat_i = 32'h00000000;
 		wb_adr_i = 32'h00000008;
 		#10
 		wb_stb_i = 1'b1;
@@ -73,6 +73,17 @@ module i2c_master_wb_TB;
 		#10
 		wb_dat_i = 32'h0000003C;
 		wb_adr_i = 32'h0000000C;
+		#10
+		wb_stb_i = 1'b1;
+		wb_cyc_i = 1'b1;
+		wb_we_i  = 1'b1;
+		#4
+		wb_stb_i = 1'b0;
+		wb_cyc_i = 1'b0;
+		wb_we_i  = 1'b0;
+		#10
+		wb_dat_i = 32'h000000AC;
+		wb_adr_i = 32'h00000010;
 		#10
 		wb_stb_i = 1'b1;
 		wb_cyc_i = 1'b1;
@@ -105,7 +116,7 @@ module i2c_master_wb_TB;
 		wb_cyc_i = 1'b0;
 		wb_we_i  = 1'b0;
 		end 
-		#10
+		#1000
 		wb_dat_i = 32'h00000001;
 		wb_adr_i = 32'h00000014;
 		#10
@@ -116,11 +127,22 @@ module i2c_master_wb_TB;
 		wb_stb_i = 1'b0;
 		wb_cyc_i = 1'b0;
 		wb_we_i  = 1'b0;	
+		#10000
+		wb_dat_i = 32'h00000000;
+		wb_adr_i = 32'h00000014;
+		#10
+		wb_stb_i = 1'b1;
+		wb_cyc_i = 1'b1;
+		wb_we_i  = 1'b1;
+		#4
+		wb_stb_i = 1'b0;
+		wb_cyc_i = 1'b0;
+		wb_we_i  = 1'b0;
 	end
 	/*
 	initial begin
         #159009			//Simulación de la señal proveniente del esclavo
-        sda_out = 1'b1;		//con la dirección 38
+        sda_out = 1'b1;		//con la dirección 3C
         @(posedge i2c_scl);
         @(posedge i2c_scl);
         sda_out = 1'b0;

@@ -50,7 +50,7 @@ system #(
 	.uart_txd(  uart_txd  ),
 	// I2C Wires
 	.sda(i2c_sda),
-	.scl(i2c_sda)
+	.scl(i2c_scl)
 );
 
 /* Clocking device */

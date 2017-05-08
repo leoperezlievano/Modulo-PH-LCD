@@ -273,3 +273,10 @@ module i2c_master (clk, reset, ena, addr, rw, data_wr, busy, data_rd, ack_error,
 
 endmodule
 
+
+
+
+
+
+
+

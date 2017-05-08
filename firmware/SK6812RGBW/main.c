@@ -93,9 +93,7 @@ void commandUart_TaskHandler(void)
 */
 int main(void)
 {	
-	uSleep(100);
-	prender_pantalla();
-	
-	
+	i2c_write_data(0x3C,0xAE);
+		
     	return 0;
 }
