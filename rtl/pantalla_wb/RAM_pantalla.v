@@ -31,7 +31,7 @@ module RAM_pantalla (clk, rst, d_in, addr_wr, wr, d_out, addr_rd, rd);
   	
   	// Se declara la memoria RAM, se trata de un arreglo 1024*8 = (128*64) bits de pantalla
   	// y en cada posición de este hay un registro de 8bits
-  	reg [0:2] ram [0:127]; // 128-bit x 64-bit RAM
+	reg [0:63] ram [0:127]; // 128-bit x 64-bit RAM
   	
   	initial begin
   		$readmemh("../default_RAM.list", ram);
