@@ -93,10 +93,13 @@ void commandUart_TaskHandler(void)
 */
 int main(void)
 {	
-	int i;
-	
-	for(i = 1; i<=564; i++){
-		fuente_read_data(i-1);
+	mSleep(1000);
+	sec_on_display();
+	while(1){
+		mSleep(1000);
+		send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
+		mSleep(1000);
+		send_command_display(DISPLAY_ADDR,0xAF); //ON PANTALLA
 	}
 		
     	return 0;

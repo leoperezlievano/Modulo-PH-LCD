@@ -13,6 +13,7 @@
 
 #define UART_RXBUFSIZE 32
 
+#define DISPLAY_ADDR	0X3C
 
 /****************************************************************************
  * Types
@@ -115,8 +116,6 @@ typedef struct {
 void i2c_write_data(uint8_t addr_wr, uint8_t data);
 uint8_t i2c_read_data(uint8_t addr_rd);
 
-//Este es para probar únicamente el I2C
-void prender_pantalla(void); //para inicializar la pantalla
 
 /***************************************************************************
  * Fuente0
@@ -129,11 +128,14 @@ void prender_pantalla(void); //para inicializar la pantalla
  } fuente_t;
  
 uint32_t fuente_read_data(uint32_t addr_rd);
+
+/***************************************************************************
+ * Funciones display
+ */
  
-/*
- void vaciar_pantalla(void);
- void pintar_letra_pantalla (uint8_t posx_t,uint8_t posy_t, uint8_t letra);
-*/
+void send_command_display(uint8_t addr, uint8_t command);
+void sec_on_display(void);
+
 /***************************************************************************
  * Funciones pH
  */

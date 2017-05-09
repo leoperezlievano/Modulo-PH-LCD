@@ -190,76 +190,47 @@ uint32_t fuente_read_data(uint32_t addr){
 /***************************************************************************
  * Pantalla Functions
  */
- 
-void prender_pantalla(void){
-	//Estos son los pasos que se recomiendan en el datasheet
-	i2c_write_data(0x3C,0xAE); 	//Display Off
-	i2c_write_data(0x3C,0xA8);	//Set MUX Ratio
-	i2c_write_data(0x3C,0x3F);
-	i2c_write_data(0x3C,0xD3);	//Set Display Offset
-	i2c_write_data(0x3C,0x00);
-	i2c_write_data(0x3C,0x40);	//Set Display Start Line
-	i2c_write_data(0x3C,0xA0);	//Set Segment re-map
-	i2c_write_data(0x3C,0xC0);	//Set COM Output Scan Direction
-	i2c_write_data(0x3C,0xDA);	//Set COM Pins hardware configuration
-	i2c_write_data(0x3C,0x02);	
-	i2c_write_data(0x3C,0x81);	//Set Contrast Control
-	i2c_write_data(0x3C,0x7F);
-	i2c_write_data(0x3C,0xA4);	//Disable Entire Display On
-	//i2c_write_data(0x3C,0xA6);	//Set Normal Display
-	i2c_write_data(0x3C,0xA7);	//Set Inverse Display
-	i2c_write_data(0x3C,0xD5);	//Set Osc Frequency
-	i2c_write_data(0x3C,0x80);
-	i2c_write_data(0x3C,0x8D);	//Enable charge pump regulator
-	i2c_write_data(0x3C,0x14);
-	i2c_write_data(0x3C,0xAF);	//Display On	
+
+void send_command_display(uint8_t addr, uint8_t command){
+	i2c_write_data(addr,0x00);
+	i2c_write_data(addr,command);
 };
 
- /*
-void prender_pantalla(void){
-	i2c_write_data(0x3C,0xAE); //OFF PANTALLA 
-	i2c_write_data(0x3C,0X20); // MODO DE DIRECCIONAMIENTO
-	i2c_write_data(0x3C,0x00);
-	i2c_write_data(0x3C,0xB0); // CUADRAR DIRECCIÓN INICIAL DE PAGINA
-        i2c_write_data(0x3C,0xC8); //OUTPUT SCAN COM DIRECTORY
-        i2c_write_data(0x3C,0x00); // --- SET LOW COLUMN ADDR ADDRES       
-        i2c_write_data(0x3C,0x10); // --- SET HIGH COLUMN ADDR
-        i2c_write_data(0x3C,0x40); // --- SET STAR LINE ADDR
-        i2c_write_data(0x3C,0x81); // SET CONTRAST
-        i2c_write_data(0x3C,0x3F); //
-        i2c_write_data(0x3C,0xA1); // SET SEGMENT RE-MAP. A1=addr 127 MAPPED
-        i2c_write_data(0x3C,0xA6); // SET DISPLAY MODE. A6=NORMAL
-        i2c_write_data(0x3C,0xA8); // SET MUX RATIO
-        i2c_write_data(0x3C,0x3F);
-        i2c_write_data(0x3C,0xA4);
-        i2c_write_data(0x3C,0xA5); // OUTPUT RAM TO DISPLAY
-        i2c_write_data(0x3C,0xD3); // DISPLAY OFFSET. 00= NO
-        i2c_write_data(0x3C,0x00);
-        i2c_write_data(0x3C,0xD5); //---SET DISPLAY CLOCK  DIVIDE RATIO /OSCILATOR
-        i2c_write_data(0x3C,0xF0); //-- SET DIVIDE RATIO
-        i2c_write_data(0x3C,0xD9); //SET PRE-CHARGUE PERIOD
-        i2c_write_data(0x3C,0x22);
-        i2c_write_data(0x3C,0xDA); //SET COM PINS 
-        i2c_write_data(0x3C,0x12);
-        i2c_write_data(0x3C,0xDB); //--SET VCOMH
-        i2c_write_data(0x3C,0x20); //0x20,0.77xVcc
-        i2c_write_data(0x3C,0x8D); //SET DC-DC ENABLE
-        i2c_write_data(0x3C,0x14); 
-        i2c_write_data(0x3C,0xAF); //ON PANTALLA
-};*/	
+void sec_on_display(void){
+	send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
+	send_command_display(DISPLAY_ADDR,0X20); // MODO DE DIRECCIONAMIENTO
+	send_command_display(DISPLAY_ADDR,0x00);
+	send_command_display(DISPLAY_ADDR,0xB0); // CUADRAR DIRECCIÓN INICIAL DE PAGINA
+        send_command_display(DISPLAY_ADDR,0xC8); //OUTPUT SCAN COM DIRECTORY
+        send_command_display(DISPLAY_ADDR,0x00); // --- SET LOW COLUMN ADDR ADDRES       
+        send_command_display(DISPLAY_ADDR,0x10); // --- SET HIGH COLUMN ADDR
+        send_command_display(DISPLAY_ADDR,0x40); // --- SET STAR LINE ADDR
+        send_command_display(DISPLAY_ADDR,0x81); // SET CONTRAST
+        send_command_display(DISPLAY_ADDR,0x3F); //
+        send_command_display(DISPLAY_ADDR,0xA1); // SET SEGMENT RE-MAP. A1=addr 127 MAPPED
+        send_command_display(DISPLAY_ADDR,0xA6); // SET DISPLAY MODE. A6=NORMAL
+        send_command_display(DISPLAY_ADDR,0xA8); // SET MUX RATIO
+        send_command_display(DISPLAY_ADDR,0x3F);
+        //send_command_display(DISPLAY_ADDR,0xA4); // OUTPUT RAM TO DISPLAY
+        send_command_display(DISPLAY_ADDR,0xA5); // ENTIRE DISPLAY ON
+        send_command_display(DISPLAY_ADDR,0xD3); // DISPLAY OFFSET. 00= NO
+        send_command_display(DISPLAY_ADDR,0x00);
+        send_command_display(DISPLAY_ADDR,0xD5); //---SET DISPLAY CLOCK  DIVIDE RATIO /OSCILATOR
+        send_command_display(DISPLAY_ADDR,0xF0); //-- SET DIVIDE RATIO
+        send_command_display(DISPLAY_ADDR,0xD9); //SET PRE-CHARGUE PERIOD
+        send_command_display(DISPLAY_ADDR,0x22);
+        send_command_display(DISPLAY_ADDR,0xDA); //SET COM PINS 
+        send_command_display(DISPLAY_ADDR,0x12);
+        send_command_display(DISPLAY_ADDR,0xDB); //--SET VCOMH
+        send_command_display(DISPLAY_ADDR,0x20); //0x20,0.77xVcc
+        send_command_display(DISPLAY_ADDR,0x8D); //SET DC-DC ENABLE
+        send_command_display(DISPLAY_ADDR,0x14); 
+        send_command_display(DISPLAY_ADDR,0xAF); //ON PANTALLA
+};	
 /*
 void vaciar_pantalla(void){
         
         uSleep(50); 
          
 };
-
-void pintar_letra_pantalla (uint8_t posx_t,uint8_t posy_t, uint8_t letra){
-	pantalla0->posx 	= posx_t;
-	pantalla0->posy		= posy_t;
-	pantalla0->caracter	= letra;
-	pantalla0->wr		= 1;
-	pantalla0->wr		= 0;
-	uSleep(1);
-}; 
 */
