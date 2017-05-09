@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Mon May  8 18:33:55 2017
+[*] Tue May  9 19:55:28 2017
 [*]
 [dumpfile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/rtl/wb_i2c/simulation/i2c_master_wb_TB.vcd"
-[dumpfile_mtime] "Mon May  8 18:33:28 2017"
-[dumpfile_size] 1971837
+[dumpfile_mtime] "Tue May  9 19:53:37 2017"
+[dumpfile_size] 2379460
 [savefile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/rtl/wb_i2c/simulation/senales.gtkw"
 [timestart] 0
 [size] 1301 744
-[pos] -302 -117
-*-27.000000 104600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -117
+*-28.000000 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] i2c_master_wb_TB.
 [treeopen] i2c_master_wb_TB.test.
 [sst_width] 225
@@ -33,21 +33,20 @@ i2c_master_wb_TB.test.ack
 @22
 i2c_master_wb_TB.test.wb_adr_i[31:0]
 i2c_master_wb_TB.test.wb_dat_i[31:0]
+@28
 i2c_master_wb_TB.test.wb_dat_o[31:0]
 @200
 -Señales I2C
 @28
 i2c_master_wb_TB.test.rw
 @22
-i2c_master_wb_TB.test.i2c0.addr[6:0]
-i2c_master_wb_TB.test.i2c0.data_wr[7:0]
+i2c_master_wb_TB.test.i2c0.slave_address[6:0]
+i2c_master_wb_TB.test.i2c0.slave_reg[7:0]
+i2c_master_wb_TB.test.i2c0.i2c_tx_data[7:0]
 @28
-i2c_master_wb_TB.test.i2c0.busy
-i2c_master_wb_TB.test.i2c0.ena
-i2c_master_wb_TB.test.i2c0.ack_error
-i2c_master_wb_TB.test.i2c0.sda
-i2c_master_wb_TB.test.i2c0.scl
-@22
-i2c_master_wb_TB.test.i2c0.state[3:0]
+i2c_master_wb_TB.test.i2c0.i2c_sdat
+i2c_master_wb_TB.test.i2c_scl
+@23
+i2c_master_wb_TB.test.i2c0.i2c_rx_data[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

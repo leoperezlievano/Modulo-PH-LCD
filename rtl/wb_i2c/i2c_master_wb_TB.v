@@ -32,8 +32,8 @@ module i2c_master_wb_TB;
 		.wb_dat_i(wb_dat_i),
 		.wb_dat_o(wb_dat_o),
 	// I2C Wires
-		.sda(i2c_sda),
-		.scl(i2c_scl)
+		.i2c_sda(i2c_sda),
+		.i2c_scl(i2c_scl)
 	);
    	
 	always #1 clk = ~clk; 
@@ -61,39 +61,6 @@ module i2c_master_wb_TB;
 		rst = 1'b0;
 		#10
 		wb_dat_i = 32'h00000000;
-		wb_adr_i = 32'h00000008;
-		#10
-		wb_stb_i = 1'b1;
-		wb_cyc_i = 1'b1;
-		wb_we_i  = 1'b1;
-		#4
-		wb_stb_i = 1'b0;
-		wb_cyc_i = 1'b0;
-		wb_we_i  = 1'b0;
-		#10
-		wb_dat_i = 32'h0000003C;
-		wb_adr_i = 32'h0000000C;
-		#10
-		wb_stb_i = 1'b1;
-		wb_cyc_i = 1'b1;
-		wb_we_i  = 1'b1;
-		#4
-		wb_stb_i = 1'b0;
-		wb_cyc_i = 1'b0;
-		wb_we_i  = 1'b0;
-		#10
-		wb_dat_i = 32'h000000AC;
-		wb_adr_i = 32'h00000010;
-		#10
-		wb_stb_i = 1'b1;
-		wb_cyc_i = 1'b1;
-		wb_we_i  = 1'b1;
-		#4
-		wb_stb_i = 1'b0;
-		wb_cyc_i = 1'b0;
-		wb_we_i  = 1'b0;
-		#10
-		wb_dat_i = 32'h00000000;
 		wb_adr_i = 32'h00000000;
 		#10
 		wb_stb_i = 1'b1;
@@ -103,45 +70,21 @@ module i2c_master_wb_TB;
 		wb_stb_i = 1'b0;
 		wb_cyc_i = 1'b0;
 		wb_we_i  = 1'b0;
-		while(wb_dat_o[0] == 1'b1) begin
 		#10
-		wb_dat_i = 32'h00000000;
-		wb_adr_i = 32'h00000000;
+		wb_dat_i = {10'h000,8'hAE,8'h00,7'h3C};
+		wb_adr_i = 32'h00000004;
 		#10
 		wb_stb_i = 1'b1;
 		wb_cyc_i = 1'b1;
 		wb_we_i  = 1'b0;
-		#4
-		wb_stb_i = 1'b0;
-		wb_cyc_i = 1'b0;
-		wb_we_i  = 1'b0;
-		end 
-		#1000
-		wb_dat_i = 32'h00000001;
-		wb_adr_i = 32'h00000014;
-		#10
-		wb_stb_i = 1'b1;
-		wb_cyc_i = 1'b1;
-		wb_we_i  = 1'b1;
-		#4
-		wb_stb_i = 1'b0;
-		wb_cyc_i = 1'b0;
-		wb_we_i  = 1'b0;	
-		#10000
-		wb_dat_i = 32'h00000000;
-		wb_adr_i = 32'h00000014;
-		#10
-		wb_stb_i = 1'b1;
-		wb_cyc_i = 1'b1;
-		wb_we_i  = 1'b1;
 		#4
 		wb_stb_i = 1'b0;
 		wb_cyc_i = 1'b0;
 		wb_we_i  = 1'b0;
 	end
-	/*
+	
 	initial begin
-        #159009			//Simulación de la señal proveniente del esclavo
+        #63733			//Simulación de la señal proveniente del esclavo
         sda_out = 1'b1;		//con la dirección 3C
         @(posedge i2c_scl);
         @(posedge i2c_scl);
@@ -159,7 +102,7 @@ module i2c_master_wb_TB;
         @(posedge i2c_scl);
         sda_out = 1'bz;
     	end
-	*/	
+		
 	initial begin
      		$dumpfile("i2c_master_wb_TB.vcd");
      		$dumpvars(-1, test);

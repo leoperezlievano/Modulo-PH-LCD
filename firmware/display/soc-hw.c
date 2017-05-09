@@ -138,43 +138,21 @@ void uart_putstr(char *str)
  * I2C Functions
  */
  
-void i2c_write_data(uint8_t addr_wr, uint8_t data){
-	while(i2c0->i2c_state == 1){
-		uSleep(50);
-	};
-	i2c0->rw 		= 0;
-	uSleep(10);
-	i2c0->addr	 	= addr_wr;
-	uSleep(10);
-	i2c0->data_wr 	= data;
-	uSleep(10);
-	i2c0->ena		= 1;
-	uSleep(10);
-	while(i2c0->i2c_state == 0){
-		uSleep(50);
-	};
-	i2c0->ena		= 0;
-};
+uint8_t i2c_read(uint32_t slave_addr, uint32_t per_addr)
+{
+		
+	while(!(i2c0->scr & I2C_DR));		//Se verifica que el bus esté en espera
+	i2c0->sdat = (slave_addr | per_addr<<8);
+	return i2c0->sdat;
 
-uint8_t i2c_read_data(uint8_t addr_rd){
-	while(i2c0->i2c_state == 1){
-		uSleep(50);
-	};
-	i2c0->rw 		= 1;
-	uSleep(10);
-	i2c0->addr	 	= addr_rd;
-	uSleep(10);
-	i2c0->ena		= 1;
-	uSleep(10);
-	while(i2c0->i2c_state == 0){
-		uSleep(50);
-	};
-	i2c0->ena		= 0;
-	while(i2c0->i2c_state == 1){
-		uSleep(50);
-	};
-	return i2c0->data_rd;
-};
+}
+
+void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data){
+	
+	while(!(i2c0->scr & I2C_DR));		//Se verifica que el bus esté en espera
+	i2c0->sdat = (slave_addr | per_addr<<8 | data<<16);
+
+}
 
 /***************************************************************************
  * Fuente Functions
@@ -192,8 +170,7 @@ uint32_t fuente_read_data(uint32_t addr){
  */
 
 void send_command_display(uint8_t addr, uint8_t command){
-	i2c_write_data(addr,0x00);
-	i2c_write_data(addr,command);
+	i2c_write(addr, DISPLAY_COMMAND, command);
 };
 
 void sec_on_display(void){
