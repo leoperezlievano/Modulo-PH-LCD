@@ -1,0 +1,43 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Mon May  8 20:52:57 2017
+[*]
+[dumpfile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/rtl/wb_fuente/simulation/wb_fuente_TB.vcd"
+[dumpfile_mtime] "Mon May  8 19:46:43 2017"
+[dumpfile_size] 17250
+[savefile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/rtl/wb_fuente/simulation/senales.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -302 -117
+*-19.000000 1132000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] wb_fuente_TB.
+[treeopen] wb_fuente_TB.test.
+[sst_width] 225
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+wb_fuente_TB.test.clk
+wb_fuente_TB.test.reset
+@200
+-Señales wb fuente
+@28
+wb_fuente_TB.test.wb_stb_i
+wb_fuente_TB.test.wb_cyc_i
+wb_fuente_TB.test.wb_we_i
+wb_fuente_TB.test.wb_wr
+wb_fuente_TB.test.rd
+@22
+wb_fuente_TB.test.addr_rd[9:0]
+wb_fuente_TB.test.wb_dat_i[31:0]
+wb_fuente_TB.test.wb_dat_o[31:0]
+@200
+-Señales fuente
+@28
+wb_fuente_TB.test.rom0.rd
+@22
+wb_fuente_TB.test.rom0.addr_rd[9:0]
+@23
+wb_fuente_TB.test.rom0.d_out[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

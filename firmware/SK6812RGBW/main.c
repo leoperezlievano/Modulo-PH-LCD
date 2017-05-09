@@ -93,7 +93,11 @@ void commandUart_TaskHandler(void)
 */
 int main(void)
 {	
-	i2c_write_data(0x3C,0xAE);
+	int i;
+	
+	for(i = 1; i<=564; i++){
+		fuente_read_data(i-1);
+	}
 		
     	return 0;
 }

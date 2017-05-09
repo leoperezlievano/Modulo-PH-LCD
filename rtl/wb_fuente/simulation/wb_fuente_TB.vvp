@@ -1,0 +1,254 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision - 11;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x1854370 .scope module, "wb_fuente_TB" "wb_fuente_TB" 2 4;
+ .timescale -8 -11;
+v0x1899150_0 .var "clk", 0 0;
+v0x18993a0_0 .var "rst", 0 0;
+v0x1899470_0 .net "wb_ack_o", 0 0, L_0x1899ed0; 1 drivers
+v0x18994f0_0 .var "wb_adr_i", 31 0;
+v0x1899570_0 .var "wb_cyc_i", 0 0;
+v0x1899620_0 .var "wb_dat_i", 31 0;
+v0x18996a0_0 .net "wb_dat_o", 31 0, v0x1898f00_0; 1 drivers
+v0x1899750_0 .var "wb_sel_i", 3 0;
+v0x1899850_0 .var "wb_stb_i", 0 0;
+v0x1899900_0 .var "wb_we_i", 0 0;
+S_0x1864ad0 .scope module, "test" "wb_fuente" 2 18, 3 10, S_0x1854370;
+ .timescale 0 0;
+L_0x18999b0 .functor AND 1, v0x1899850_0, v0x1899570_0, C4<1>, C4<1>;
+L_0x1899a90 .functor NOT 1, v0x1899900_0, C4<0>, C4<0>, C4<0>;
+L_0x1899b40 .functor AND 1, L_0x18999b0, L_0x1899a90, C4<1>, C4<1>;
+L_0x1899c40 .functor AND 1, v0x1899850_0, v0x1899570_0, C4<1>, C4<1>;
+L_0x1899ca0 .functor AND 1, L_0x1899c40, v0x1899900_0, C4<1>, C4<1>;
+L_0x1899d50 .functor AND 1, v0x1899850_0, v0x1899570_0, C4<1>, C4<1>;
+L_0x1899ed0 .functor AND 1, L_0x1899d50, v0x1898740_0, C4<1>, C4<1>;
+v0x18984c0_0 .net *"_s0", 0 0, L_0x18999b0; 1 drivers
+v0x1898580_0 .net *"_s10", 0 0, L_0x1899d50; 1 drivers
+v0x1898620_0 .net *"_s2", 0 0, L_0x1899a90; 1 drivers
+v0x18986c0_0 .net *"_s6", 0 0, L_0x1899c40; 1 drivers
+v0x1898740_0 .var "ack", 0 0;
+v0x18987e0_0 .var "addr_rd", 9 0;
+v0x18988a0_0 .net "clk", 0 0, v0x1899150_0; 1 drivers
+v0x1898950_0 .net "d_out", 7 0, v0x1898210_0; 1 drivers
+v0x1898a50_0 .var "rd", 0 0;
+v0x1898b00_0 .net "reset", 0 0, v0x18993a0_0; 1 drivers
+v0x1898c10_0 .alias "wb_ack_o", 0 0, v0x1899470_0;
+v0x1898c90_0 .net "wb_adr_i", 31 0, v0x18994f0_0; 1 drivers
+v0x1898d80_0 .net "wb_cyc_i", 0 0, v0x1899570_0; 1 drivers
+v0x1898e00_0 .net "wb_dat_i", 31 0, v0x1899620_0; 1 drivers
+v0x1898f00_0 .var "wb_dat_o", 31 0;
+v0x1898f80_0 .net "wb_rd", 0 0, L_0x1899b40; 1 drivers
+v0x1898e80_0 .net "wb_sel_i", 3 0, v0x1899750_0; 1 drivers
+v0x18990d0_0 .net "wb_stb_i", 0 0, v0x1899850_0; 1 drivers
+v0x18991f0_0 .net "wb_we_i", 0 0, v0x1899900_0; 1 drivers
+v0x1899270_0 .net "wb_wr", 0 0, L_0x1899ca0; 1 drivers
+E_0x18540d0 .event posedge, v0x1898170_0;
+S_0x1879720 .scope module, "rom0" "ROM_fuente" 3 49, 4 1, S_0x1864ad0;
+ .timescale 0 0;
+v0x1879810_0 .net "addr_rd", 9 0, v0x18987e0_0; 1 drivers
+v0x1898170_0 .alias "clk", 0 0, v0x18988a0_0;
+v0x1898210_0 .var "d_out", 7 0;
+v0x18982b0_0 .net "rd", 0 0, v0x1898a50_0; 1 drivers
+v0x1898360 .array "rom", 563 0, 7 0;
+v0x18983e0_0 .alias "rst", 0 0, v0x1898b00_0;
+E_0x1879c10 .event negedge, v0x1898170_0;
+    .scope S_0x1879720;
+T_0 ;
+    %vpi_call 4 20 "$readmemh", "../fuente_6x8.list", v0x1898360;
+    %end;
+    .thread T_0;
+    .scope S_0x1879720;
+T_1 ;
+    %wait E_0x1879c10;
+    %load/v 8, v0x18983e0_0, 1;
+    %jmp/0xz  T_1.0, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v0x1898210_0, 0, 0;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/v 8, v0x18982b0_0, 1;
+    %jmp/0xz  T_1.2, 8;
+    %ix/getv 3, v0x1879810_0;
+    %load/av 8, v0x1898360, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v0x1898210_0, 0, 8;
+T_1.2 ;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x1864ad0;
+T_2 ;
+    %set/v v0x1898a50_0, 0, 1;
+    %end;
+    .thread T_2;
+    .scope S_0x1864ad0;
+T_3 ;
+    %wait E_0x18540d0;
+    %load/v 8, v0x1898b00_0, 1;
+    %jmp/0xz  T_3.0, 8;
+    %ix/load 0, 32, 0;
+    %assign/v0 v0x1898f00_0, 0, 0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x1898a50_0, 0, 0;
+    %ix/load 0, 10, 0;
+    %assign/v0 v0x18987e0_0, 0, 0;
+    %jmp T_3.1;
+T_3.0 ;
+    %ix/load 0, 24, 0;
+    %ix/load 1, 8, 0;
+    %assign/v0/x1 v0x1898f00_0, 0, 0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x1898740_0, 0, 0;
+    %load/v 8, v0x1898f80_0, 1;
+    %load/v 9, v0x1898740_0, 1;
+    %inv 9, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_3.2, 8;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x1898740_0, 0, 1;
+    %load/v 8, v0x1898950_0, 8;
+    %ix/load 0, 8, 0;
+    %ix/load 1, 0, 0;
+    %assign/v0/x1 v0x1898f00_0, 0, 8;
+    %jmp T_3.3;
+T_3.2 ;
+    %load/v 8, v0x1899270_0, 1;
+    %load/v 9, v0x1898740_0, 1;
+    %inv 9, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_3.4, 8;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x1898740_0, 0, 1;
+    %ix/load 1, 2, 0;
+    %mov 4, 0, 1;
+    %jmp/1 T_3.6, 4;
+    %load/x1p 8, v0x1898c90_0, 2;
+    %jmp T_3.7;
+T_3.6 ;
+    %mov 8, 2, 2;
+T_3.7 ;
+; Save base=8 wid=2 in lookaside.
+    %cmpi/u 8, 0, 2;
+    %jmp/1 T_3.8, 6;
+    %cmpi/u 8, 1, 2;
+    %jmp/1 T_3.9, 6;
+    %ix/load 0, 8, 0;
+    %ix/load 1, 0, 0;
+    %assign/v0/x1 v0x1898f00_0, 0, 0;
+    %jmp T_3.11;
+T_3.8 ;
+    %load/v 8, v0x1898e00_0, 1; Only need 1 of 32 bits
+; Save base=8 wid=1 in lookaside.
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x1898a50_0, 0, 8;
+    %jmp T_3.11;
+T_3.9 ;
+    %load/v 8, v0x1898e00_0, 10; Only need 10 of 32 bits
+; Save base=8 wid=10 in lookaside.
+    %ix/load 0, 10, 0;
+    %assign/v0 v0x18987e0_0, 0, 8;
+    %jmp T_3.11;
+T_3.11 ;
+T_3.4 ;
+T_3.3 ;
+T_3.1 ;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0x1854370;
+T_4 ;
+    %delay 1000, 0;
+    %load/v 8, v0x1899150_0, 1;
+    %inv 8, 1;
+    %set/v v0x1899150_0, 8, 1;
+    %jmp T_4;
+    .thread T_4;
+    .scope S_0x1854370;
+T_5 ;
+    %delay 1000000, 0;
+    %vpi_call 2 24 "$finish";
+    %end;
+    .thread T_5;
+    .scope S_0x1854370;
+T_6 ;
+    %set/v v0x1899150_0, 0, 1;
+    %set/v v0x18993a0_0, 0, 1;
+    %set/v v0x1899850_0, 0, 1;
+    %set/v v0x1899570_0, 0, 1;
+    %set/v v0x1899900_0, 0, 1;
+    %set/v v0x18994f0_0, 0, 32;
+    %set/v v0x1899750_0, 0, 4;
+    %set/v v0x1899620_0, 0, 32;
+    %end;
+    .thread T_6;
+    .scope S_0x1854370;
+T_7 ;
+    %delay 10000, 0;
+    %set/v v0x18993a0_0, 1, 1;
+    %delay 10000, 0;
+    %set/v v0x18993a0_0, 0, 1;
+    %delay 10000, 0;
+    %movi 8, 56, 32;
+    %set/v v0x1899620_0, 8, 32;
+    %movi 8, 4, 32;
+    %set/v v0x18994f0_0, 8, 32;
+    %delay 10000, 0;
+    %set/v v0x1899850_0, 1, 1;
+    %set/v v0x1899570_0, 1, 1;
+    %set/v v0x1899900_0, 1, 1;
+    %delay 4000, 0;
+    %set/v v0x1899850_0, 0, 1;
+    %set/v v0x1899570_0, 0, 1;
+    %set/v v0x1899900_0, 0, 1;
+    %delay 10000, 0;
+    %movi 8, 1, 32;
+    %set/v v0x1899620_0, 8, 32;
+    %set/v v0x18994f0_0, 0, 32;
+    %delay 10000, 0;
+    %set/v v0x1899850_0, 1, 1;
+    %set/v v0x1899570_0, 1, 1;
+    %set/v v0x1899900_0, 1, 1;
+    %delay 4000, 0;
+    %set/v v0x1899850_0, 0, 1;
+    %set/v v0x1899570_0, 0, 1;
+    %set/v v0x1899900_0, 0, 1;
+    %delay 10000, 0;
+    %set/v v0x1899620_0, 0, 32;
+    %set/v v0x18994f0_0, 0, 32;
+    %delay 10000, 0;
+    %set/v v0x1899850_0, 1, 1;
+    %set/v v0x1899570_0, 1, 1;
+    %set/v v0x1899900_0, 1, 1;
+    %delay 4000, 0;
+    %set/v v0x1899850_0, 0, 1;
+    %set/v v0x1899570_0, 0, 1;
+    %set/v v0x1899900_0, 0, 1;
+    %delay 10000, 0;
+    %set/v v0x1899620_0, 0, 32;
+    %movi 8, 8, 32;
+    %set/v v0x18994f0_0, 8, 32;
+    %delay 10000, 0;
+    %set/v v0x1899850_0, 1, 1;
+    %set/v v0x1899570_0, 1, 1;
+    %set/v v0x1899900_0, 0, 1;
+    %delay 4000, 0;
+    %set/v v0x1899850_0, 0, 1;
+    %set/v v0x1899570_0, 0, 1;
+    %set/v v0x1899900_0, 0, 1;
+    %end;
+    .thread T_7;
+    .scope S_0x1854370;
+T_8 ;
+    %vpi_call 2 90 "$dumpfile", "wb_fuente_TB.vcd";
+    %vpi_call 2 91 "$dumpvars", 3'sb111, S_0x1864ad0;
+    %end;
+    .thread T_8;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "wb_fuente_TB.v";
+    "wb_fuente.v";
+    "ROM_fuente.v";

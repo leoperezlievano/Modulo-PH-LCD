@@ -3,10 +3,10 @@ module ROM_fuente (clk, rst, addr_rd, rd, d_out);
 	clk	-------->|	    ROM |	
 	rst	-------->|		|
 			 |  		|
-	                 |   fuente	|				/
+	                 |   fuente	|				
 	                 |  		|
-	addr_rd -------->|	   	|-------->	d_out		/
-	rd	-------->|______________|				/
+	addr_rd -------->|	   	|-------->	d_out		
+	rd	-------->|______________|				
 
 */
 
@@ -16,7 +16,7 @@ output reg [7:0] d_out;     //Dato de salida
 
 reg [7:0] rom [0:563];     // 564-bit x 8-bit ROM
 
-        initial begin
+       	initial begin
                 $readmemh("../fuente_6x8.list", rom);
         end
 

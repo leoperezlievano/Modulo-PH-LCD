@@ -1,14 +1,13 @@
-/*
-			rd               //0x00
-			wr		 //0x04
-			posx             //0X08
-			posy    	 //0X0C
-			caracter         //0x10
-			addr_rd 	 //0x14
+/*Wishbone Fuente 
+
+Register Description:
+Escritura		rd              //0x00
+			addr_rd 	//0x04
+Lectura			d_out		//0x08
 */
 
 
-module pantalla_wb(
+module wb_fuente(
         input              clk,
 	input              reset,
 	// Wishbone interface
@@ -24,16 +23,13 @@ module pantalla_wb(
 
 
 /*			   _____________
-	clk	-------->|	    RAM |	
+	clk	-------->|	    ROM |	
 	rst	-------->|		|
 			 |  		|
-	posx	-------->|		|				
-	posy    -------->|   pantalla	|				
-	wr	-------->|		|
-	caracter-------->|		|				
-		         |  		|
+	                 |  ROM_fuente	|				
+	                 |  		|
 	addr_rd -------->|	   	|-------->	d_out		
-	rd	-------->|______________|				
+	rd	-------->|______________|					
 */
 
 
@@ -44,17 +40,13 @@ module pantalla_wb(
 //Se declaran como registros las entradas del módulo
 
 reg rd = 1'b0;
-reg wr = 1'b0;     
-reg [6:0] posx ;
-reg [5:0] posy ;
-reg [6:0]     caracter;
-reg [9:0]     addr_rd;
+reg [9:0] addr_rd;
 
 //Se declaran como wires las salidas del módulo
 
-wire  [7:0] d_out;
+wire [7:0] d_out;
 
-pantalla pantalla0 (.clk(clk), .rst(reset), .rd(rd), .wr(wr), .addr_rd(addr_rd), .posx(posx), .posy(posy), .caracter(caracter), .dout(d_out));
+ROM_fuente rom0 (.clk(clk), .rst(reset), .addr_rd(addr_rd), .rd(rd), .d_out(d_out));
 
 wire wb_rd = wb_stb_i & wb_cyc_i & ~wb_we_i;
 wire wb_wr = wb_stb_i & wb_cyc_i &  wb_we_i;
@@ -68,29 +60,20 @@ always @(posedge clk) begin
 	if (reset) begin
 		wb_dat_o[31:0] 		        <= 32'b0;
 		rd				<= 1'b0;		
-		wr				<= 1'b0;
-		posx				<= 7'b0;
-	        posy			        <= 6'b0;
-		caracter			<= 7'b0;
 		addr_rd  			<= 10'b0;
 		
 	end else begin
 		wb_dat_o[31:8] <= 24'b0;
 		ack  <= 0;
 		//Lectura y escritura de registros
-		if (wb_rd & ~ack) begin
+		if (wb_rd & ~ack) begin			//Salidas del whisbone
 			ack <= 1;
-			
-			wb_dat_o[7:0] <= d_out;
-		end else if (wb_wr & ~ack ) begin //entradas
+			wb_dat_o[7:0] <= d_out;						    //0x08
+		end else if (wb_wr & ~ack ) begin 	//Entradas del whisbone
 			ack 		<= 1;	
-			case (wb_adr_i[4:2]) 
-			3'b000: begin 	        rd  		<= wb_dat_i[0]; 	end //0x00
-			3'b001: begin		wr		<= wb_dat_i[0]; 	end //0x04
-			3'b010: begin		posx		<= wb_dat_i[6:0]; 	end //0X08
-			3'b011: begin		posy    	<= wb_dat_i[5:0]; 	end //0X0C
-			3'b100: begin   	caracter 	<= wb_dat_i[6:0];	end //0x10
-			3'b101: begin   	addr_rd 	<= wb_dat_i[9:0];	end //0x14
+			case (wb_adr_i[3:2]) 
+			3'b00: begin 	        rd  		<= wb_dat_i[0]; 	end //0x00
+			3'b01: begin		addr_rd		<= wb_dat_i[9:0]; 	end //0x04
 			default: begin 	        wb_dat_o[7:0]   <= 8'b0; 		end
 			endcase
 		end

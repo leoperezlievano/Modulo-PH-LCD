@@ -5,8 +5,8 @@
 uart_t       	*uart0       	= (uart_t *)       	0x20000000;
 timerH_t     	*timer0   	= (timerH_t *)     	0x40000000;
 i2c_t	  	*i2c0		= (i2c_t *)		0x60000000;
-//pantalla_t    *pantalla0    = (pantalla_t*)      0x80000000;
-//gpio_t       *gpio0       = (gpio_t *)       	0x40000000;
+fuente_t    	*fuente0    	= (fuente_t*)      	0x80000000;
+//gpio_t       	*gpio0       	= (gpio_t *)       	0x40000000;
 
 isr_ptr_t isr_table[32];
 
@@ -174,6 +174,17 @@ uint8_t i2c_read_data(uint8_t addr_rd){
 		uSleep(50);
 	};
 	return i2c0->data_rd;
+};
+
+/***************************************************************************
+ * Fuente Functions
+ */
+
+uint32_t fuente_read_data(uint32_t addr){
+	fuente0->addr_rd	= addr;
+	fuente0->rd		= 1;
+	fuente0->rd		= 0;
+	return fuente0->d_out;
 };
 
 /***************************************************************************

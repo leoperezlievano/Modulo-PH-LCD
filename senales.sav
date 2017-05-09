@@ -1,17 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Mon May  8 18:37:10 2017
+[*] Mon May  8 21:57:57 2017
 [*]
 [dumpfile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/simulation/system_tb.vcd"
-[dumpfile_mtime] "Mon May  8 18:36:25 2017"
-[dumpfile_size] 267707920
+[dumpfile_mtime] "Mon May  8 21:50:01 2017"
+[dumpfile_size] 276392361
 [savefile] "/media/leoperez/Datos/College/2017 I/Electrónica Digital II/Proyecto - Digital II/lm32_matrix-creator/senales.sav"
 [timestart] 0
 [size] 1301 744
 [pos] -302 -117
-*-28.000000 292000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-29.000000 493510000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] system_tb.
 [treeopen] system_tb.dut.
+[treeopen] system_tb.dut.fuente0.
 [treeopen] system_tb.dut.i2c0.
 [sst_width] 225
 [signals_width] 190
@@ -41,7 +42,27 @@ system_tb.dut.i2c0.i2c0.addr[6:0]
 system_tb.dut.i2c0.i2c0.data_tx[7:0]
 @28
 system_tb.dut.i2c0.i2c0.sda
-@29
 system_tb.dut.i2c0.i2c0.scl
+@200
+-Señales Wb fuente
+@28
+system_tb.dut.fuente0.wb_stb_i
+system_tb.dut.fuente0.wb_cyc_i
+system_tb.dut.fuente0.wb_we_i
+system_tb.dut.fuente0.wb_wr
+system_tb.dut.fuente0.wb_rd
+@22
+system_tb.dut.fuente0.wb_adr_i[31:0]
+@23
+system_tb.dut.fuente0.wb_dat_i[31:0]
+@22
+system_tb.dut.fuente0.wb_dat_o[31:0]
+@200
+-Señales Fuente
+@28
+system_tb.dut.fuente0.rom0.rd
+system_tb.dut.fuente0.rom0.addr_rd[9:0]
+@22
+system_tb.dut.fuente0.rom0.d_out[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

@@ -1,4 +1,4 @@
-DESIGN          = pantalla_wb
+DESIGN          = wb_fuente
 PINS            = $(DESIGN).ucf
 DEVICE          = xc6slx4-tqg144-2
 BGFLAGS         = -g TdoPin:PULLNONE -g DonePin:PULLUP \
@@ -11,7 +11,7 @@ SIM_COMP_SCRIPT = simulation/$(DESIGN)_TB.do
 SIMGEN_OPTIONS  = -p $(FPGA_ARCH) -lang $(LANGUAGE)
 IVERILOG        = iverilog
 
-SRC             = $(DESIGN).v RAM_pantalla.v control_pantalla.v pantalla.v ROM_fuente.v \
+SRC             = $(DESIGN).v ROM_fuente.v \
 
 SIM_SRC = $(DESIGN)_TB.v          \
 

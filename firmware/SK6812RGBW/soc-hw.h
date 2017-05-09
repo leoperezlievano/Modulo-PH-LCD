@@ -119,19 +119,18 @@ uint8_t i2c_read_data(uint8_t addr_rd);
 void prender_pantalla(void); //para inicializar la pantalla
 
 /***************************************************************************
- * Pantalla0
+ * Fuente0
  */
- /*
+ 
  typedef struct {
         volatile uint32_t rd;
-        volatile uint32_t wr;
-        volatile uint32_t posx;
-	volatile uint32_t posy;
-	volatile uint32_t caracter;
-	volatile uint32_t addr_rd;
- } pantalla_t;
+       	volatile uint32_t addr_rd;
+       	volatile uint32_t d_out;
+ } fuente_t;
  
-
+uint32_t fuente_read_data(uint32_t addr_rd);
+ 
+/*
  void vaciar_pantalla(void);
  void pintar_letra_pantalla (uint8_t posx_t,uint8_t posy_t, uint8_t letra);
 */
@@ -147,7 +146,7 @@ void prender_pantalla(void); //para inicializar la pantalla
 extern timerH_t 	*timer0;
 extern uart_t   	*uart0; 
 extern i2c_t   		*i2c0;
-//extern pantalla_t 	*pantalla0;
+extern fuente_t 	*fuente0;
 extern uint32_t 	*sram0; 
 
 #endif // SPIKEHW_H
