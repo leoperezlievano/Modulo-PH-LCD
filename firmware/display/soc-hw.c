@@ -242,20 +242,11 @@ void sec_on_display(void){
         mSleep(1);
 };	
 
+
+
 void clear_GDRAM(void){
         int i, j;
-        mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x21); //Configurar el direccionamiento por columna
-        mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x00);
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x7F);
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x22); //Configurar el diferccionamiento por página
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x00);
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x07);
+        set_position(0x00, 0x00);
 	for(j=1;j<9;j++){
           	for (i=1;i<129;i++) {  
           		mSleep(1);
@@ -263,5 +254,31 @@ void clear_GDRAM(void){
           	}
         }
 	
+};
+
+void set_position(uint8_t posx, uint8_t posy){
+	mSleep(1);
+	send_command_display(DISPLAY_ADDR,0x21); //Configurar el direccionamiento por columna
+        mSleep(1);
+	send_command_display(DISPLAY_ADDR,posx);
+	mSleep(1);
+	send_command_display(DISPLAY_ADDR,0x7F);
+	mSleep(1);
+	send_command_display(DISPLAY_ADDR,0x22); //Configurar el diferccionamiento por página
+	mSleep(1);
+	send_command_display(DISPLAY_ADDR,posy);
+	mSleep(1);
+	send_command_display(DISPLAY_ADDR,0x07);
+};
+
+void print_char(uint32_t code){
+        uint32_t addr = (code*6);
+        uint32_t data;
+        uint8_t k; 
+        for(k=0;k<6;k++){
+        	data = fuente_read_data(addr+k);
+        	send_data_display(DISPLAY_ADDR,data); //Configurar el direccionamiento por columna
+        	mSleep(1);
+        };
 };
 

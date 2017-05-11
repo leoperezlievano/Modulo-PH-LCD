@@ -14,7 +14,7 @@ input clk, rst, rd;
 input [9:0] addr_rd;       //Dirección de lectura
 output reg [7:0] d_out;     //Dato de salida
 
-reg [7:0] rom [0:1023];     // 564-bit x 8-bit ROM
+reg [7:0] rom [0:1023];     // 1024-bit x 8-bit ROM
 
        	initial begin
                 $readmemh("../fuente_6x8.list", rom);

@@ -93,165 +93,19 @@ void commandUart_TaskHandler(void)
 */
 int main(void)
 {	
-	uSleep(400);
+	uSleep(100);
 	sec_on_display();
 	clear_GDRAM();
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x21); //Configurar el direccionamiento por columna
-        mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x20);
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x7F);
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x22); //Configurar el diferccionamiento por página
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x03);
-	mSleep(1);
-	send_command_display(DISPLAY_ADDR,0x07);
-	mSleep(1);
-        send_data_display(0x3C, 0x00);	//A
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-        mSleep(1);
-        send_data_display(0x3C, 0x12);
-        mSleep(1);
-        send_data_display(0x3C, 0x11);
-        mSleep(1);
-        send_data_display(0x3C, 0x12);
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);	//u
-        mSleep(1);
-        send_data_display(0x3C, 0x3C);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x20);
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-         mSleep(1);
-        send_data_display(0x3C, 0x00);	//t
-        mSleep(1);
-        send_data_display(0x3C, 0x04);
-        mSleep(1);
-        send_data_display(0x3C, 0x3F);
-        mSleep(1);
-        send_data_display(0x3C, 0x44);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x20);
-          mSleep(1);
-        send_data_display(0x3C, 0x00);	//o
-        mSleep(1);
-        send_data_display(0x3C, 0x38);
-        mSleep(1);
-        send_data_display(0x3C, 0x44);
-        mSleep(1);
-        send_data_display(0x3C, 0x44);
-        mSleep(1);
-        send_data_display(0x3C, 0x44);
-        mSleep(1);
-        send_data_display(0x3C, 0x38);
-          mSleep(1);
-        send_data_display(0x3C, 0x00);	//a
-        mSleep(1);
-        send_data_display(0x3C, 0x20);
-        mSleep(1);
-        send_data_display(0x3C, 0x54);
-        mSleep(1);
-        send_data_display(0x3C, 0x54);
-        mSleep(1);
-        send_data_display(0x3C, 0x54);
-        mSleep(1);
-        send_data_display(0x3C, 0x78);
-          mSleep(1);
-        send_data_display(0x3C, 0x00);	//q
-        mSleep(1);
-        send_data_display(0x3C, 0x18);
-        mSleep(1);
-        send_data_display(0x3C, 0x24);
-        mSleep(1);
-        send_data_display(0x3C, 0x24);
-        mSleep(1);
-        send_data_display(0x3C, 0x18);
-        mSleep(1);
-        send_data_display(0x3C, 0xFC);
-         mSleep(1);
-        send_data_display(0x3C, 0x00);	//u
-        mSleep(1);
-        send_data_display(0x3C, 0x3C);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x20);
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);	//a
-        mSleep(1);
-        send_data_display(0x3C, 0x20);
-        mSleep(1);
-        send_data_display(0x3C, 0x54);
-        mSleep(1);
-        send_data_display(0x3C, 0x54);
-        mSleep(1);
-        send_data_display(0x3C, 0x54);
-        mSleep(1);
-        send_data_display(0x3C, 0x78);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);	//r
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-        mSleep(1);
-        send_data_display(0x3C, 0x08);
-        mSleep(1);
-        send_data_display(0x3C, 0x04);
-        mSleep(1);
-        send_data_display(0x3C, 0x04);
-        mSleep(1);
-        send_data_display(0x3C, 0x08);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);	//i
-        mSleep(1);
-        send_data_display(0x3C, 0x00);
-        mSleep(1);
-        send_data_display(0x3C, 0x44);
-        mSleep(1);
-        send_data_display(0x3C, 0x7D);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);	//u
-        mSleep(1);
-        send_data_display(0x3C, 0x3C);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x40);
-        mSleep(1);
-        send_data_display(0x3C, 0x20);
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-        mSleep(1);
-        send_data_display(0x3C, 0x00);	//m
-        mSleep(1);
-        send_data_display(0x3C, 0x7C);
-        mSleep(1);
-        send_data_display(0x3C, 0x04);
-        mSleep(1);
-        send_data_display(0x3C, 0x18);
-        mSleep(1);
-        send_data_display(0x3C, 0x04);
-        mSleep(1);
-        send_data_display(0x3C, 0x78);
-        mSleep(1);
+	set_position(60, 1);
+	print_char(36);
+	set_position(60, 2);
+	print_char(73);
+	set_position(60, 3);
+	print_char(65);
+	set_position(60, 4);
+	print_char(78);
+	set_position(60, 5);
+	print_char(65);
+	
     	return 0;
 }
