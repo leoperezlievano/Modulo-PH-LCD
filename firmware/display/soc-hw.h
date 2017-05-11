@@ -146,6 +146,7 @@ void sec_on_display(void);
 void clear_GDRAM(void);
 void set_position(uint8_t posx, uint8_t posy);
 void print_char(uint32_t code);
+void print_wifi(void);
 
 /***************************************************************************
  * Funciones pH

@@ -106,6 +106,7 @@ int main(void)
 	print_char(78);
 	set_position(60, 5);
 	print_char(65);
+        print_wifi();
 	
     	return 0;
 }

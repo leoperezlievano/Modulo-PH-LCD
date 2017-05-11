@@ -156,6 +156,7 @@ void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data){
 	i2c0->s_reg 	= per_addr;
 	i2c0->tx_data 	= data;
 	i2c0->start_wr 	= 0x00;
+	mSleep(1);
 }
 
 /***************************************************************************
@@ -182,64 +183,35 @@ void send_data_display(uint32_t addr, uint32_t data){
 };
 
 void sec_on_display(void){
-        mSleep(1);
-	send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
-	mSleep(1);
+        send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
 	send_command_display(DISPLAY_ADDR,0X20); // MODO DE DIRECCIONAMIENTO
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,0x00);
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,0xB0); // CUADRAR DIRECCIÓN INICIAL DE PAGINA
-	mSleep(1);
         send_command_display(DISPLAY_ADDR,0xC8); //OUTPUT SCAN COM DIRECTORY
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x00); // --- SET LOW COLUMN ADDR ADDRES       
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x10); // --- SET HIGH COLUMN ADDR
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x40); // --- SET STAR LINE ADDR
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x81); // SET CONTRAST
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x3F); //
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xA1); // SET SEGMENT RE-MAP. A1=addr 127 MAPPED
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xA6); // SET DISPLAY MODE. A6=NORMAL
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xA8); // SET MUX RATIO
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x3F);
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xA4); // OUTPUT RAM TO DISPLAY
         //send_command_display(DISPLAY_ADDR,0xA5); // ENTIRE DISPLAY ON
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xD3); // DISPLAY OFFSET. 00= NO
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x00);
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xD5); //---SET DISPLAY CLOCK  DIVIDE RATIO /OSCILATOR
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xF0); //-- SET DIVIDE RATIO
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xD9); //SET PRE-CHARGUE PERIOD
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x22);
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xDA); //SET COM PINS 
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x12);
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xDB); //--SET VCOMH
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x20); //0x20,0.77xVcc
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x8D); //SET DC-DC ENABLE
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0x14); 
-        mSleep(1);
         send_command_display(DISPLAY_ADDR,0xAF); //ON PANTALLA
-        mSleep(1);
 };	
 
 
@@ -248,26 +220,19 @@ void clear_GDRAM(void){
         int i, j;
         set_position(0x00, 0x00);
 	for(j=1;j<9;j++){
-          	for (i=1;i<129;i++) {  
-          		mSleep(1);
-            		send_data_display(0x3C, 0x00);
+          	for (i=1;i<129;i++) {
+            		send_data_display(DISPLAY_ADDR, 0x00);
           	}
         }
 	
 };
 
 void set_position(uint8_t posx, uint8_t posy){
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,0x21); //Configurar el direccionamiento por columna
-        mSleep(1);
 	send_command_display(DISPLAY_ADDR,posx);
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,0x7F);
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,0x22); //Configurar el diferccionamiento por página
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,posy);
-	mSleep(1);
 	send_command_display(DISPLAY_ADDR,0x07);
 };
 
@@ -277,8 +242,13 @@ void print_char(uint32_t code){
         uint8_t k; 
         for(k=0;k<6;k++){
         	data = fuente_read_data(addr+k);
-        	send_data_display(DISPLAY_ADDR,data); //Configurar el direccionamiento por columna
-        	mSleep(1);
+        	send_data_display(DISPLAY_ADDR,data);
         };
+};
+
+void print_wifi(void){
+        set_position(112, 0);
+        print_char(94);
+        print_char(95);
 };
 
