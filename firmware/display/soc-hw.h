@@ -141,7 +141,9 @@ uint32_t fuente_read_data(uint32_t addr_rd);
  */
  
 void send_command_display(uint32_t addr, uint32_t command);
+void send_data_display(uint32_t addr, uint32_t data);
 void sec_on_display(void);
+void clear_GDRAM(void);
 
 /***************************************************************************
  * Funciones pH
