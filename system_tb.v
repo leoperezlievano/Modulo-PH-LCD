@@ -59,7 +59,27 @@ initial begin
 end
 
 always #(tck/2) clk <= ~clk;
-
+/*
+initial begin
+        #1657710		//Simulación de la señal proveniente del esclavo
+        sda_out = 1'b1;		//con la dirección 3C
+        @(posedge i2c_scl);
+        @(posedge i2c_scl);
+        sda_out = 1'b0;
+        @(posedge i2c_scl);
+        sda_out = 1'b1;
+        @(posedge i2c_scl);
+        sda_out = 1'b0;
+        @(posedge i2c_scl);
+        sda_out = 1'b1;
+        @(posedge i2c_scl);
+        @(posedge i2c_scl);
+        sda_out = 1'b0;
+        @(posedge i2c_scl);
+        @(posedge i2c_scl);
+        sda_out = 1'bz;
+    	end
+*/
 /* Simulation setup */
 initial begin
 

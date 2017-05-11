@@ -112,7 +112,12 @@ char uart_getchar(void);
 
 typedef struct {
    volatile uint32_t scr;
-   volatile uint32_t sdat;
+   volatile uint32_t i2c_rx_data;
+   volatile uint32_t s_address;
+   volatile uint32_t s_reg;
+   volatile uint32_t tx_data;
+   volatile uint32_t start_wr;
+   volatile uint32_t start_rd;
 } i2c_t;
 
 uint8_t i2c_read(uint32_t slave_addr, uint32_t per_addr);
@@ -135,7 +140,7 @@ uint32_t fuente_read_data(uint32_t addr_rd);
  * Funciones display
  */
  
-void send_command_display(uint8_t addr, uint8_t command);
+void send_command_display(uint32_t addr, uint32_t command);
 void sec_on_display(void);
 
 /***************************************************************************

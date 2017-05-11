@@ -93,9 +93,11 @@ void commandUart_TaskHandler(void)
 */
 int main(void)
 {	
+
+	int i;
 	while(1){
 		uSleep(1000);
-		send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
+		i = i2c_read(0x3C,0x4A);
 	}
 		
     	return 0;

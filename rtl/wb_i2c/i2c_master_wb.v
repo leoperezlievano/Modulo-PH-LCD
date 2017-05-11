@@ -1,11 +1,17 @@
-//---------------------------------------------------------------------------
-// Wishbone I2C 
-//
-// Register Description:
-//
-//    0x00 SCR      [ 0 | 0 | 0 | 0 | 0 | i2c_busy  | start | ack ]
-//    0x04 SET	    [ 10'h0 | tx_data | s_reg | s_address ]
-//---------------------------------------------------------------------------
+/*---------------------------------------------------------------------------
+   Wishbone I2C 
+
+   Register Description:
+
+    	0x00 scr      	[ 0 | 0 | 0 | 0 | 0 | i2c_busy  | start | ack ]		/Lectura
+    	0x04 i2c_rx_data
+    	0x08 s_address								/Escritura	
+    	0x0C s_reg
+    	0x10 tx_data
+    	0x14 start_wr
+    	0x18 start_rd
+	
+---------------------------------------------------------------------------*/
 
 module i2c_master_wb(
 	input              clk,
@@ -19,7 +25,7 @@ module i2c_master_wb(
 	input        [3:0] wb_sel_i,
 	input       [31:0] wb_dat_i,
 	output reg  [31:0] wb_dat_o,
-	// Serial Wires
+	// I2C Wires
 	inout              i2c_sda,
 	output 		   i2c_scl
 );
@@ -107,15 +113,11 @@ begin
 			
 			ack_wb <= 1'b1;
 
-			case (wb_adr_i[2])
-			1'b0: begin					//0x00			
+			case (wb_adr_i[4:2])
+			3'b000: begin					//0x00			
 				wb_dat_o[7:0] <= scr; 			//Mostrar registro de estado
 			end
-			1'b1: begin					//0x04
-				i2c_rw 		<= 1'b0;
-				start_reg 	<= 1'b0;
-				s_address	<= wb_dat_i[6:0]; 
-				s_reg     	<= wb_dat_i[15:8];
+			3'b001: begin					//0x04
 				wb_dat_o[7:0] 	<= i2c_rx_data; 	//Mostrar registro de datos recibidos	
 			end
 			default: begin
@@ -127,13 +129,23 @@ begin
 			
 			ack_wb <= 1'b1;
 
-			case (wb_adr_i[2])
-			1'b1:begin					//0x04
+			case (wb_adr_i[4:2])
+			3'b010:begin					//0x08
+				s_address 	<= wb_dat_i[6:0]; 
+			end
+			3'b011:begin					//0x0C
+				s_reg     	<= wb_dat_i[7:0];
+			end
+			3'b100:begin					//0x10
+				tx_data     	<= wb_dat_i[7:0];
+			end
+			3'b101:begin					//0x14
 				i2c_rw 		<= 1'b1;
 				start_reg 	<= 1'b0;
-				s_address 	<= wb_dat_i[6:0]; 
-				s_reg     	<= wb_dat_i[15:8];
-				tx_data   	<= wb_dat_i[23:16];
+			end
+			3'b110:begin					//0x18
+				i2c_rw 		<= 1'b0;
+				start_reg 	<= 1'b0;
 			end
 			default: begin
 				wb_dat_o[7:0] 	<= 8'b0;	

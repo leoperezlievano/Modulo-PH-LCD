@@ -142,16 +142,20 @@ uint8_t i2c_read(uint32_t slave_addr, uint32_t per_addr)
 {
 		
 	while(!(i2c0->scr & I2C_DR));		//Se verifica que el bus esté en espera
-	i2c0->sdat = (slave_addr | per_addr<<8);
-	return i2c0->sdat;
-
+	i2c0->s_address = slave_addr;
+	i2c0->s_reg 	= per_addr;
+	i2c0->start_rd 	= 0x00;
+	while(!(i2c0->scr & I2C_DR));
+	return i2c0->i2c_rx_data;
 }
 
 void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data){
 	
 	while(!(i2c0->scr & I2C_DR));		//Se verifica que el bus esté en espera
-	i2c0->sdat = (slave_addr | per_addr<<8 | data<<16);
-
+	i2c0->s_address = slave_addr;
+	i2c0->s_reg 	= per_addr;
+	i2c0->tx_data 	= data;
+	i2c0->start_wr 	= 0x00;
 }
 
 /***************************************************************************
@@ -169,7 +173,7 @@ uint32_t fuente_read_data(uint32_t addr){
  * Pantalla Functions
  */
 
-void send_command_display(uint8_t addr, uint8_t command){
+void send_command_display(uint32_t addr, uint32_t command){
 	i2c_write(addr, DISPLAY_COMMAND, command);
 };
 
