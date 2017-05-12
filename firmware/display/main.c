@@ -104,7 +104,7 @@ int main(void)
         clear_GDRAM();
         init_display();
         clear_GDRAM();
-        principal_display(25, 24, 23);
+        principal_display(18, 19, 16, 25, 24, 23);
 	
     	return 0;
 }

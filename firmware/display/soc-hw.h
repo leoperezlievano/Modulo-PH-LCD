@@ -146,9 +146,9 @@ void sec_on_display(void);
 void clear_GDRAM(void);
 void set_position(uint8_t posx, uint8_t posy);
 void print_char(uint32_t code);
-void print_wifi(void);
+void print_wifi_hour(uint8_t hora, uint8_t minutos, uint8_t minutos2);
 void init_display(void);
-void principal_display(uint8_t temperatura, uint8_t ph1, uint8_t ph2);
+void principal_display(uint8_t hora, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2);
 
 /***************************************************************************
  * Funciones pH

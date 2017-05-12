@@ -246,13 +246,20 @@ void print_char(uint32_t code){
         };
 };
 
-void print_wifi(void){
-        set_position(112, 0);
+void print_wifi_hour(uint8_t hora1, uint8_t hora2, uint8_t minutos1, uint8_t minutos2){
+        set_position(84, 0);
+        print_char(hora1);
+        print_char(hora2);
+        print_char(26);
+        print_char(minutos1);
+        print_char(minutos2);
+        print_char(00);
         print_char(94);
         print_char(95);
 };
 
 void init_display(void){
+        uint8_t i;
         set_position(23,3);
         print_char(33);
         print_char(53);
@@ -266,13 +273,9 @@ void init_display(void){
         print_char(41);
         print_char(53);
         print_char(45);
-        print_char(00);
-        print_char(00);
-        print_char(00);
-        print_char(00);
-        print_char(00);
-        print_char(00);
-        print_char(00);
+        for(i=0;i<6;i++){
+                print_char(00);
+        };
         print_char(96);
         print_char(97);
         print_char(00);
@@ -285,10 +288,10 @@ void init_display(void){
         print_char(97);
 };
 
-void principal_display(uint8_t temperatura, uint8_t ph1, uint8_t ph2){
+void principal_display(uint8_t hora, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2){
         uint8_t i;
-        print_wifi();
-        set_position(0,2);
+        print_wifi_hour(hora,minutos1, minutos2);
+        set_position(0,1);
         print_char(98);
         print_char(99);
         for(i=0;i<19;i++){
@@ -309,9 +312,39 @@ void principal_display(uint8_t temperatura, uint8_t ph1, uint8_t ph2){
         print_char(85);
         print_char(82);
         print_char(65);
+        print_char(26);
         print_char(00);
         print_char(temperatura);
         print_char(102);
+        for(i=0;i<5;i++){
+                print_char(00);
+        };
+        send_data_display(DISPLAY_ADDR, 0x00);
+        send_data_display(DISPLAY_ADDR, 0x00);
+        print_char(00);
+        print_char(48);
+        print_char(40);
+        print_char(17);
+        print_char(26);
+        print_char(00);
+        print_char(ph1);
+        for(i=0;i<15;i++){
+                print_char(00);
+        };  
+        send_data_display(DISPLAY_ADDR, 0x00);
+        send_data_display(DISPLAY_ADDR, 0x00); 
+        print_char(00);    
+        print_char(48);
+        print_char(40);
+        print_char(19);
+        print_char(26);
+        print_char(00);
+        print_char(ph2);
+        for(i=0;i<14;i++){
+                print_char(00);
+        };  
+        send_data_display(DISPLAY_ADDR, 0x00);
+        send_data_display(DISPLAY_ADDR, 0x00); 
         
 };
 
