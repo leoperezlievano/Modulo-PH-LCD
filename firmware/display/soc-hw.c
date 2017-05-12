@@ -252,3 +252,66 @@ void print_wifi(void){
         print_char(95);
 };
 
+void init_display(void){
+        set_position(23,3);
+        print_char(33);
+        print_char(53);
+        print_char(52);
+        print_char(47);
+        print_char(33);
+        print_char(35);
+        print_char(53);
+        print_char(33);
+        print_char(50);
+        print_char(41);
+        print_char(53);
+        print_char(45);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        print_char(96);
+        print_char(97);
+        print_char(00);
+        print_char(00);
+        print_char(96);
+        print_char(97);
+        print_char(00);
+        print_char(00);
+        print_char(96);
+        print_char(97);
+};
+
+void principal_display(uint8_t temperatura, uint8_t ph1, uint8_t ph2){
+        uint8_t i;
+        print_wifi();
+        set_position(0,2);
+        print_char(98);
+        print_char(99);
+        for(i=0;i<19;i++){
+                print_char(00);
+        }; 
+        send_data_display(DISPLAY_ADDR, 0x00);
+        send_data_display(DISPLAY_ADDR, 0x00);
+        print_char(100);
+        print_char(101);       
+        print_char(52);
+        print_char(69);
+        print_char(77);
+        print_char(80);
+        print_char(69);
+        print_char(82);
+        print_char(65);
+        print_char(84);
+        print_char(85);
+        print_char(82);
+        print_char(65);
+        print_char(00);
+        print_char(temperatura);
+        print_char(102);
+        
+};
+

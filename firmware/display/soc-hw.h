@@ -147,6 +147,8 @@ void clear_GDRAM(void);
 void set_position(uint8_t posx, uint8_t posy);
 void print_char(uint32_t code);
 void print_wifi(void);
+void init_display(void);
+void principal_display(uint8_t temperatura, uint8_t ph1, uint8_t ph2);
 
 /***************************************************************************
  * Funciones pH

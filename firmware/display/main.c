@@ -96,17 +96,15 @@ int main(void)
 	uSleep(100);
 	sec_on_display();
 	clear_GDRAM();
-	set_position(60, 1);
-	print_char(36);
-	set_position(60, 2);
-	print_char(73);
-	set_position(60, 3);
-	print_char(65);
-	set_position(60, 4);
-	print_char(78);
-	set_position(60, 5);
-	print_char(65);
-        print_wifi();
+        init_display();
+        uSleep(100);
+        clear_GDRAM();
+        init_display();
+        uSleep(100);
+        clear_GDRAM();
+        init_display();
+        clear_GDRAM();
+        principal_display(25, 24, 23);
 	
     	return 0;
 }
