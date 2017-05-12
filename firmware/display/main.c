@@ -93,18 +93,12 @@ void commandUart_TaskHandler(void)
 */
 int main(void)
 {	
-	uSleep(100);
 	sec_on_display();
 	clear_GDRAM();
         init_display();
-        uSleep(100);
+        mSleep(3000);
         clear_GDRAM();
-        init_display();
-        uSleep(100);
-        clear_GDRAM();
-        init_display();
-        clear_GDRAM();
-        principal_display(18, 19, 16, 25, 24, 23);
+        principal_display(16, 18, 19, 16, 25, 24, 23);
 	
     	return 0;
 }

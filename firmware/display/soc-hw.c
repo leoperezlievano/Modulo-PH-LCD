@@ -138,7 +138,7 @@ void uart_putstr(char *str)
  * I2C Functions
  */
  
-uint8_t i2c_read(uint32_t slave_addr, uint32_t per_addr)
+uint8_t i2c_read(uint8_t slave_addr, uint8_t per_addr)
 {
 		
 	while(!(i2c0->scr & I2C_DR));		//Se verifica que el bus esté en espera
@@ -149,7 +149,7 @@ uint8_t i2c_read(uint32_t slave_addr, uint32_t per_addr)
 	return i2c0->i2c_rx_data;
 }
 
-void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data){
+void i2c_write(uint8_t slave_addr, uint8_t per_addr, uint8_t data){
 	
 	while(!(i2c0->scr & I2C_DR));		//Se verifica que el bus esté en espera
 	i2c0->s_address = slave_addr;
@@ -163,7 +163,7 @@ void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data){
  * Fuente Functions
  */
 
-uint32_t fuente_read_data(uint32_t addr){
+uint8_t fuente_read_data(uint32_t addr){
 	fuente0->addr_rd	= addr;
 	fuente0->rd		= 1;
 	fuente0->rd		= 0;
@@ -174,11 +174,11 @@ uint32_t fuente_read_data(uint32_t addr){
  * Pantalla Functions
  */
 
-void send_command_display(uint32_t addr, uint32_t command){
+void send_command_display(uint8_t addr, uint8_t command){
 	i2c_write(addr, DISPLAY_COMMAND, command);
 };
 
-void send_data_display(uint32_t addr, uint32_t data){
+void send_data_display(uint8_t addr, uint8_t data){
 	i2c_write(addr, DISPLAY_INDEX, data);
 };
 
@@ -217,7 +217,7 @@ void sec_on_display(void){
 
 
 void clear_GDRAM(void){
-        int i, j;
+        uint8_t i, j;
         set_position(0x00, 0x00);
 	for(j=1;j<9;j++){
           	for (i=1;i<129;i++) {
@@ -236,9 +236,9 @@ void set_position(uint8_t posx, uint8_t posy){
 	send_command_display(DISPLAY_ADDR,0x07);
 };
 
-void print_char(uint32_t code){
+void print_char(uint8_t code){
         uint32_t addr = (code*6);
-        uint32_t data;
+        uint8_t data;
         uint8_t k; 
         for(k=0;k<6;k++){
         	data = fuente_read_data(addr+k);
@@ -247,7 +247,7 @@ void print_char(uint32_t code){
 };
 
 void print_wifi_hour(uint8_t hora1, uint8_t hora2, uint8_t minutos1, uint8_t minutos2){
-        set_position(84, 0);
+        set_position(80, 0);
         print_char(hora1);
         print_char(hora2);
         print_char(26);
@@ -273,32 +273,23 @@ void init_display(void){
         print_char(41);
         print_char(53);
         print_char(45);
-        for(i=0;i<6;i++){
+        //peces
+        set_position(8,4);
+        for(i=0;i<3;i++){
+                print_char(00);
+                print_char(96);
+                print_char(97);
+                print_char(00);
                 print_char(00);
         };
-        print_char(96);
-        print_char(97);
-        print_char(00);
-        print_char(00);
-        print_char(96);
-        print_char(97);
-        print_char(00);
-        print_char(00);
-        print_char(96);
-        print_char(97);
 };
 
-void principal_display(uint8_t hora, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2){
-        uint8_t i;
-        print_wifi_hour(hora,minutos1, minutos2);
+void principal_display(uint8_t hora1, uint8_t hora2, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2){
+        print_wifi_hour(hora1, hora2,minutos1, minutos2);
         set_position(0,1);
         print_char(98);
         print_char(99);
-        for(i=0;i<19;i++){
-                print_char(00);
-        }; 
-        send_data_display(DISPLAY_ADDR, 0x00);
-        send_data_display(DISPLAY_ADDR, 0x00);
+        set_position(0,2);
         print_char(100);
         print_char(101);       
         print_char(52);
@@ -316,11 +307,9 @@ void principal_display(uint8_t hora, uint8_t minutos1, uint8_t minutos2, uint8_t
         print_char(00);
         print_char(temperatura);
         print_char(102);
-        for(i=0;i<5;i++){
-                print_char(00);
-        };
-        send_data_display(DISPLAY_ADDR, 0x00);
-        send_data_display(DISPLAY_ADDR, 0x00);
+        print_char(35);
+        set_position(12,3);
+        print_char(00);
         print_char(00);
         print_char(48);
         print_char(40);
@@ -328,23 +317,28 @@ void principal_display(uint8_t hora, uint8_t minutos1, uint8_t minutos2, uint8_t
         print_char(26);
         print_char(00);
         print_char(ph1);
-        for(i=0;i<15;i++){
-                print_char(00);
-        };  
-        send_data_display(DISPLAY_ADDR, 0x00);
-        send_data_display(DISPLAY_ADDR, 0x00); 
+        /*set_position(12,4);
+        print_char(00);
         print_char(00);    
         print_char(48);
         print_char(40);
-        print_char(19);
+        print_char(18);
         print_char(26);
         print_char(00);
-        print_char(ph2);
-        for(i=0;i<14;i++){
-                print_char(00);
-        };  
-        send_data_display(DISPLAY_ADDR, 0x00);
-        send_data_display(DISPLAY_ADDR, 0x00); 
-        
+        print_char(ph2);  
+        set_position(0,5);
+        print_char(00);    
+        print_char(48);
+        print_char(40);
+        print_char(18);
+        print_char(26);
+        print_char(00); 
+        set_position(63,5); 
+        print_char(00);    
+        print_char(48);
+        print_char(40);
+        print_char(18);
+        print_char(26);
+        print_char(00); */  
 };
 

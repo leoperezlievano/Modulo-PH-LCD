@@ -120,8 +120,8 @@ typedef struct {
    volatile uint32_t start_rd;
 } i2c_t;
 
-uint8_t i2c_read(uint32_t slave_addr, uint32_t per_addr);
-void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data);
+uint8_t i2c_read(uint8_t slave_addr, uint8_t per_addr);
+void i2c_write(uint8_t slave_addr, uint8_t per_addr, uint8_t data);
 
 
 /***************************************************************************
@@ -134,21 +134,21 @@ void i2c_write(uint32_t slave_addr, uint32_t per_addr, uint32_t data);
        	volatile uint32_t d_out;
  } fuente_t;
  
-uint32_t fuente_read_data(uint32_t addr_rd);
+uint8_t fuente_read_data(uint32_t addr_rd);
 
 /***************************************************************************
  * Funciones display
  */
  
-void send_command_display(uint32_t addr, uint32_t command);
-void send_data_display(uint32_t addr, uint32_t data);
+void send_command_display(uint8_t addr, uint8_t command);
+void send_data_display(uint8_t addr, uint8_t data);
 void sec_on_display(void);
 void clear_GDRAM(void);
 void set_position(uint8_t posx, uint8_t posy);
-void print_char(uint32_t code);
-void print_wifi_hour(uint8_t hora, uint8_t minutos, uint8_t minutos2);
+void print_char(uint8_t code);
+void print_wifi_hour(uint8_t hora1, uint8_t hora2, uint8_t minutos, uint8_t minutos2);
 void init_display(void);
-void principal_display(uint8_t hora, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2);
+void principal_display(uint8_t hora, uint8_t hora2, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2);
 
 /***************************************************************************
  * Funciones pH
