@@ -28,6 +28,6 @@ int main(void) {
 	m=cadena_ascii(" hola"); // ahora el puntero apunta a la dirección de x
 	
 	printf("%d\n",m[3]); // "%d\n" se usa para observar el valor al que apunta el puntero m en su dirección [3]
-	return 0;
+	return 0; //
 }
 
