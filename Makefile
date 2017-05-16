@@ -2,7 +2,7 @@ XILINXCADROOT   = /opt/Xilinx/14.7/ISE_DS/ISE/
 
 DESIGN          = system
 USER		= pi
-IP		= 192.168.43.222
+IP		= 192.168.0.18
 
 VINCDIR=                                  \
 	-I../rtl/wb_conbus                 \

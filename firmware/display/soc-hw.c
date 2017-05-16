@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "soc-hw.h"
 
 //Aqui se ponen las direcciones de los módulos
@@ -134,6 +137,29 @@ void uart_putstr(char *str)
     }
 }
 
+char *itoa(int i, char b[]){
+    char const digit[] = "0123456789";
+    char *p = b;
+    if (i < 0)
+    {
+        *p++ = '-';
+        i *= -1;
+    }
+    int shifter = i;
+    do
+    { //Move to where representation ends
+        ++p;
+        shifter = shifter / 10;
+    } while (shifter);
+    *p = '\0';
+    do
+    { //Move back, inserting digits as u go
+        *--p = digit[i % 10];
+        i = i / 10;
+    } while (i);
+    return b;
+}
+
 /***************************************************************************
  * I2C Functions
  */
@@ -231,7 +257,7 @@ void set_position(uint8_t posx, uint8_t posy){
 	send_command_display(DISPLAY_ADDR,0x21); //Configurar el direccionamiento por columna
 	send_command_display(DISPLAY_ADDR,posx);
 	send_command_display(DISPLAY_ADDR,0x7F);
-	send_command_display(DISPLAY_ADDR,0x22); //Configurar el diferccionamiento por página
+	send_command_display(DISPLAY_ADDR,0x22); //Configurar el direccionamiento por página
 	send_command_display(DISPLAY_ADDR,posy);
 	send_command_display(DISPLAY_ADDR,0x07);
 };
@@ -246,13 +272,36 @@ void print_char(uint8_t code){
         };
 };
 
-void print_wifi_hour(uint8_t hora1, uint8_t hora2, uint8_t minutos1, uint8_t minutos2){
+void print_cadena_ascii(char* cadena){   			 
+  	uint8_t i;
+   
+  	for(i = 0; cadena[i] !='\0'; i++){   	
+    		print_char(cadena[i]-32); 
+  	};
+};
+
+void print_entero_ascii(int numero){
+    uint8_t c = numero;
+    uint8_t contador = 1; 
+    
+     while(c/10>0)
+    {
+        c=c/10;
+        contador++;
+    };
+    
+    char buffer[contador];
+    
+    itoa(numero,buffer);
+    
+    print_cadena_ascii(buffer);
+};
+
+void print_wifi_hour(uint8_t hora, uint8_t minutos){
         set_position(80, 0);
-        print_char(hora1);
-        print_char(hora2);
+        print_entero_ascii(hora);
         print_char(26);
-        print_char(minutos1);
-        print_char(minutos2);
+        print_entero_ascii(minutos);
         print_char(00);
         print_char(94);
         print_char(95);
@@ -261,20 +310,9 @@ void print_wifi_hour(uint8_t hora1, uint8_t hora2, uint8_t minutos1, uint8_t min
 void init_display(void){
         uint8_t i;
         set_position(23,3);
-        print_char(33);
-        print_char(53);
-        print_char(52);
-        print_char(47);
-        print_char(33);
-        print_char(35);
-        print_char(53);
-        print_char(33);
-        print_char(50);
-        print_char(41);
-        print_char(53);
-        print_char(45);
+        print_cadena_ascii("AUTOAQUARIUM");
         //peces
-        set_position(8,4);
+        set_position(19,5);
         for(i=0;i<3;i++){
                 print_char(00);
                 print_char(96);
@@ -284,61 +322,25 @@ void init_display(void){
         };
 };
 
-void principal_display(uint8_t hora1, uint8_t hora2, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2){
-        print_wifi_hour(hora1, hora2,minutos1, minutos2);
-        set_position(0,1);
+void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8_t ph){
+        print_wifi_hour(hora,minutos);
+        set_position(4,1);
         print_char(98);
         print_char(99);
-        set_position(0,2);
+        set_position(4,2);
         print_char(100);
-        print_char(101);       
-        print_char(52);
-        print_char(69);
-        print_char(77);
-        print_char(80);
-        print_char(69);
-        print_char(82);
-        print_char(65);
-        print_char(84);
-        print_char(85);
-        print_char(82);
-        print_char(65);
-        print_char(26);
-        print_char(00);
-        print_char(temperatura);
+        print_char(101);
+        print_cadena_ascii("Temperatura: ");
+        print_entero_ascii(temperatura);
         print_char(102);
         print_char(35);
-        set_position(12,3);
-        print_char(00);
-        print_char(00);
-        print_char(48);
-        print_char(40);
-        print_char(17);
-        print_char(26);
-        print_char(00);
-        print_char(ph1);
-        /*set_position(12,4);
-        print_char(00);
-        print_char(00);    
-        print_char(48);
-        print_char(40);
-        print_char(18);
-        print_char(26);
-        print_char(00);
-        print_char(ph2);  
-        set_position(0,5);
-        print_char(00);    
-        print_char(48);
-        print_char(40);
-        print_char(18);
-        print_char(26);
-        print_char(00); 
-        set_position(63,5); 
-        print_char(00);    
-        print_char(48);
-        print_char(40);
-        print_char(18);
-        print_char(26);
-        print_char(00); */  
+        set_position(4,3);
+        print_char(103);
+        print_char(104);
+        set_position(4,4);
+        print_char(105);
+        print_char(106);
+        print_cadena_ascii("Nivel de PH: ");
+        print_entero_ascii(ph);        
 };
 

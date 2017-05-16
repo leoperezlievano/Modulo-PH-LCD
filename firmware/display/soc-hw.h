@@ -101,6 +101,7 @@ void uart_init(void);
 void uart_putchar(char c);
 void uart_putstr(char *str);
 char uart_getchar(void);
+char *itoa(int i, char b[]);
 
 /***************************************************************************
  * I2C0
@@ -146,9 +147,11 @@ void sec_on_display(void);
 void clear_GDRAM(void);
 void set_position(uint8_t posx, uint8_t posy);
 void print_char(uint8_t code);
-void print_wifi_hour(uint8_t hora1, uint8_t hora2, uint8_t minutos, uint8_t minutos2);
+void print_cadena_ascii(char* cadena);
+void print_entero_ascii(int numero);
+void print_wifi_hour(uint8_t hora, uint8_t minutos);
 void init_display(void);
-void principal_display(uint8_t hora, uint8_t hora2, uint8_t minutos1, uint8_t minutos2, uint8_t temperatura, uint8_t ph1, uint8_t ph2);
+void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8_t ph);
 
 /***************************************************************************
  * Funciones pH
