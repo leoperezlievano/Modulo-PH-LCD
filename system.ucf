@@ -10,8 +10,8 @@ NET "uart_rxd" LOC = "P69";
 NET "uart_txd" LOC = "P70";
 
 # ==== I2C ====
-NET "scl"		LOC = "P75" | IOSTANDARD = LVCMOS33;
-NET "sda"		LOC = "P74" | IOSTANDARD = LVCMOS33;
+NET "scl"		LOC = "P80" | IOSTANDARD = LVCMOS33;
+NET "sda"		LOC = "P81" | IOSTANDARD = LVCMOS33;
 
 
 
