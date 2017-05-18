@@ -9,7 +9,7 @@ uart_t       	*uart0       	= (uart_t *)       	0x20000000;
 timerH_t     	*timer0   	= (timerH_t *)     	0x40000000;
 i2c_t	  	*i2c0		= (i2c_t *)		0x60000000;
 fuente_t    	*fuente0    	= (fuente_t*)      	0x80000000;
-//gpio_t       	*gpio0       	= (gpio_t *)       	0x40000000;
+//gpio_t       	*gpio0       	= (gpio_t *)       	0xA0000000;
 
 isr_ptr_t isr_table[32];
 
@@ -173,6 +173,7 @@ uint8_t i2c_read(uint8_t slave_addr, uint8_t per_addr)
 	i2c0->start_rd 	= 0x00;
 	while(!(i2c0->scr & I2C_DR));
 	return i2c0->i2c_rx_data;
+	mSleep(2);
 }
 
 void i2c_write(uint8_t slave_addr, uint8_t per_addr, uint8_t data){
@@ -197,7 +198,7 @@ uint8_t fuente_read_data(uint32_t addr){
 };
 
 /***************************************************************************
- * Pantalla Functions
+ * Display Functions
  */
 
 void send_command_display(uint8_t addr, uint8_t command){

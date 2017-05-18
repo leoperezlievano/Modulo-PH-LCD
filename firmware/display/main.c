@@ -86,12 +86,6 @@ void initPH (void)
           val2 =  0;
           gconf4|=val2;
           i2c_write(0x39,APDS9960_GCONF4,gconf4);
-
-         
-
-
-
-         //return true;
     
 };
 
@@ -109,23 +103,40 @@ void habilitar_PH_sensor (void)
   uint8_t val_enable = 0x03;
   enable |= val_enable;
   i2c_write(0x39, APDS9960_ENABLE, enable);
-
-  mSleep(500);
-
-  //return true;
-
+  
+  mSleep(100);
 };
+
 
 uint32_t leer_rojo (void)
 {
 
   uint32_t RL = i2c_read(0x39, APDS9960_RDATAL);
   uint32_t RH = i2c_read(0x39, APDS9960_RDATAH);
-  uint32_t R = RL + (RH << 8);
+  uint32_t R = (RL) + (RH * 0xFF);
 
   return R;
 };
 
+uint32_t leer_verde (void)
+{
+
+  uint32_t GL = i2c_read(0x39, APDS9960_GDATAL);
+  uint32_t GH = i2c_read(0x39, APDS9960_GDATAH);
+  uint32_t G = (GL) + (GH * 0xFF);
+
+  return G;
+};
+
+uint32_t leer_azul (void)
+{
+
+  uint32_t BL = i2c_read(0x39, APDS9960_BDATAL);
+  uint32_t BH = i2c_read(0x39, APDS9960_BDATAH);
+  uint32_t B = (BL) + (BH * 0xFF);
+
+  return B;
+};
 
 void ver_entero_consola(int numero){
     uint8_t c = numero;
@@ -147,54 +158,48 @@ void ver_entero_consola(int numero){
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(void)
 {	
-        //uint8_t i1,i2;
-        
 	sec_on_display();
-	clear_GDRAM();
-	init_display();
-	mSleep(4000);
-	/*
-	initPH();
-        habilitar_PH_sensor();
+	clear_GDRAM();   
+        set_position(4,2);
+        print_cadena_ascii("Color rojo: ");
+        set_position(4,4);
+        print_cadena_ascii("Color azul: ");
+        set_position(4,6);
+        print_cadena_ascii("Color verde: ");
         
-        uint32_t rojo = leer_rojo();
-     
-        i1 = rojo & 0xFF;
-        i2 = (rojo >> 8) & 0xFF;
-        mSleep(1000);*/
-/*
-        ver_entero_consola(i2);
-        ver_entero_consola(i1);
-        uart_putstr("\r\n");
-        */
-        mSleep(4000);
-	clear_GDRAM();
-	principal_display(04, 20, 17, 7);
-	clear_GDRAM();
-	principal_display(04, 20, 17, 7);
-	clear_GDRAM();
-	principal_display(04, 20, 17, 7);
+        uint32_t rojo, azul, verde;
+        
+        set_position(80,7);
+        print_entero_ascii(0xFF);           
+        
+        while(1){
+        initPH(); 
+        habilitar_PH_sensor();
+        rojo = leer_rojo();
+        set_position(80,2);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        set_position(80,2);
+        print_entero_ascii(rojo);
+        azul = leer_azul();
+        set_position(80,4);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        set_position(80,4);
+        print_entero_ascii(azul);
+        verde = leer_verde();
+        set_position(80,6);
+        print_char(00);
+        print_char(00);
+        print_char(00);
+        set_position(80,6);
+        print_entero_ascii(verde);              
+        mSleep(500);
+        }
         	
     	return 0;
 }
