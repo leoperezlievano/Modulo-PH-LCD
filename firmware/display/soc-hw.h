@@ -319,12 +319,19 @@ void print_entero_ascii(int numero);
 void print_wifi_hour(uint8_t hora, uint8_t minutos);
 void init_display(void);
 void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8_t ph);
+void password(uint8_t);
+void menu_display();
 
 /***************************************************************************
  * Funciones pH
  */
  
-
+void initPH (void);
+void habilitar_PH_sensor (void);
+uint32_t leer_rojo (void);
+uint32_t leer_verde (void);
+uint32_t leer_azul (void);
+void ver_entero_consola(uint32_t numero)
 
 /***************************************************************************
  * Pointer to actual components
