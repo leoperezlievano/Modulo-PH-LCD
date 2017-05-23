@@ -144,8 +144,8 @@ conbus #(
 	.s0_addr(3'b000),// bram      	0x00000000 
 	.s1_addr(3'b001),// uart0     	0x20000000 
 	.s2_addr(3'b010),// timer	0x40000000 
-	.s3_addr(3'b011)// I2C		0x60000000 
-	//.s4_addr(3'b100) // pantalla	0x80000000 
+	.s3_addr(3'b011),// I2C		0x60000000 
+	.s4_addr(3'b100) // Fuente	0x80000000 
 	//.s5_addr(3'b101) // pH    	0xA0000000
 	//.s5_addr(3'b110) // gpio  	0xC0000000 
 ) conbus0(

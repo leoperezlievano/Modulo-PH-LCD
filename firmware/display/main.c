@@ -25,9 +25,6 @@ int main(void){
         set_position(4,6);
         print_cadena_ascii("Color verde: ");
         
-        set_position(80,7);
-        print_entero_ascii(0xFF);           
-
         int32_t rojo, azul, verde;
         
         while(1){
