@@ -210,7 +210,14 @@ void send_data_display(uint8_t addr, uint8_t data){
 };
 
 void sec_on_display(void){
-        send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
+	uint32_t addr = 642;
+        uint8_t data;
+        uint8_t k; 
+        for(k=0;k<28;k++){
+        	data = fuente_read_data(addr+k);
+        	send_command_display(DISPLAY_ADDR,data);
+        };
+        /*send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
 	send_command_display(DISPLAY_ADDR,0X20); // MODO DE DIRECCIONAMIENTO
 	send_command_display(DISPLAY_ADDR,0x00);
 	send_command_display(DISPLAY_ADDR,0xB0); // CUADRAR DIRECCIÓN INICIAL DE PAGINA
@@ -238,7 +245,7 @@ void sec_on_display(void){
         send_command_display(DISPLAY_ADDR,0x20); //0x20,0.77xVcc
         send_command_display(DISPLAY_ADDR,0x8D); //SET DC-DC ENABLE
         send_command_display(DISPLAY_ADDR,0x14); 
-        send_command_display(DISPLAY_ADDR,0xAF); //ON PANTALLA
+        send_command_display(DISPLAY_ADDR,0xAF); //ON PANTALLA*/
 };	
 
 
