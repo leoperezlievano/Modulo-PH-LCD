@@ -1,0 +1,7 @@
+char* crear_cadena(char* cadena,char letra,int posicion){ //recibe un vector en el cual va poner cada caracter
+
+    cadena[posicion] = letra;
+
+    return cadena;
+}
+
