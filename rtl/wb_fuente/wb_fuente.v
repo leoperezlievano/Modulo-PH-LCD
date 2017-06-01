@@ -3,7 +3,9 @@
 Register Description:
 Escritura		rd              //0x00
 			addr_rd 	//0x04
+			ena_led		//0x0C
 Lectura			d_out		//0x08
+			
 */
 
 
@@ -18,18 +20,21 @@ module wb_fuente(
 	input       [31:0] wb_adr_i,
 	input        [3:0] wb_sel_i,
 	input       [31:0] wb_dat_i,
-	output reg  [31:0] wb_dat_o
+	output reg  [31:0] wb_dat_o,
+	// Output wire led
+	output 		   led		
 );
 
 
-/*			   _____________
+/*              	  ______________
 	clk	-------->|	    ROM |	
 	rst	-------->|		|
 			 |  		|
-	                 |  ROM_fuente	|				
+	ena_led  ------->|   fuente	|				
 	                 |  		|
 	addr_rd -------->|	   	|-------->	d_out		
-	rd	-------->|______________|					
+	rd	-------->|______________|-------->      led				
+
 */
 
 
@@ -41,12 +46,15 @@ module wb_fuente(
 
 reg rd = 1'b0;
 reg [9:0] addr_rd;
+reg ena_led = 1'b0;
 
 //Se declaran como wires las salidas del módulo
 
 wire [7:0] d_out;
+wire led;
 
-ROM_fuente rom0 (.clk(clk), .rst(reset), .addr_rd(addr_rd), .rd(rd), .d_out(d_out));
+ROM_fuente rom0 (.clk(clk), .rst(reset), .addr_rd(addr_rd), .rd(rd), .d_out(d_out), .ena_led(ena_led), .led(led));
+
 
 wire wb_rd = wb_stb_i & wb_cyc_i & ~wb_we_i;
 wire wb_wr = wb_stb_i & wb_cyc_i &  wb_we_i;
@@ -61,19 +69,20 @@ always @(posedge clk) begin
 		wb_dat_o[31:0] 		        <= 32'b0;
 		rd				<= 1'b0;		
 		addr_rd  			<= 10'b0;
-		
+		ena_led				<= 1'b0;
 	end else begin
 		wb_dat_o[31:8] <= 24'b0;
 		ack  <= 0;
 		//Lectura y escritura de registros
 		if (wb_rd & ~ack) begin			//Salidas del whisbone
 			ack <= 1;
-			wb_dat_o[7:0] <= d_out;						    //0x08
+			wb_dat_o[7:0] <= d_out;				//0x08
 		end else if (wb_wr & ~ack ) begin 	//Entradas del whisbone
 			ack 		<= 1;	
 			case (wb_adr_i[3:2]) 
 			3'b00: begin 	        rd  		<= wb_dat_i[0]; 	end //0x00
 			3'b01: begin		addr_rd		<= wb_dat_i[9:0]; 	end //0x04
+			3'b11: begin		ena_led		<= wb_dat_i[0];		end //0x0C
 			default: begin 	        wb_dat_o[7:0]   <= 8'b0; 		end
 			endcase
 		end

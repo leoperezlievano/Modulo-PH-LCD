@@ -487,3 +487,10 @@ void ver_entero_consola(uint32_t numero){
     uart_putstr(buffer);
 };
 
+void on_led (void){
+	fuente0->ena_led	= 1;
+};
+
+void off_led (void){
+	fuente0->ena_led	= 0;
+};

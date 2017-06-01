@@ -26,7 +26,9 @@ module system
 	output            uart_txd,
 	//i2c
 	inout 		  sda,
-	output		  scl	
+	output		  scl,
+	//pH
+	output wire 	  led_out	
 );
 
 
@@ -408,7 +410,8 @@ wb_fuente fuente0 (
 	  .wb_cyc_i( fuente0_cyc ),
 	  .wb_we_i(  fuente0_we ),
 	  .wb_sel_i( fuente0_sel ),
-	  .wb_ack_o( fuente0_ack )
+	  .wb_ack_o( fuente0_ack ),
+	  .led(led_out)
 );
 
 

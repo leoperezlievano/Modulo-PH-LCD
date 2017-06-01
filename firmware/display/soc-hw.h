@@ -300,6 +300,7 @@ void i2c_write(uint8_t slave_addr, uint8_t per_addr, uint8_t data);
         volatile uint32_t rd;
        	volatile uint32_t addr_rd;
        	volatile uint32_t d_out;
+       	volatile uint32_t ena_led;
  } fuente_t;
  
 uint8_t fuente_read_data(uint32_t addr_rd);
@@ -332,6 +333,8 @@ uint32_t leer_rojo (void);
 uint32_t leer_verde (void);
 uint32_t leer_azul (void);
 void ver_entero_consola(uint32_t numero);
+void on_led (void);
+void off_led (void);
 
 /***************************************************************************
  * Pointer to actual components

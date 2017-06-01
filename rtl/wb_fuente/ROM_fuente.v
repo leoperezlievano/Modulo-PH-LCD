@@ -1,18 +1,22 @@
-module ROM_fuente (clk, rst, addr_rd, rd, d_out);
+module ROM_fuente (clk, rst, addr_rd, rd, d_out, ena_led, led);
 /*              	  ______________
 	clk	-------->|	    ROM |	
 	rst	-------->|		|
 			 |  		|
-	                 |   fuente	|				
+	ena_led -------->|   fuente	|				
 	                 |  		|
 	addr_rd -------->|	   	|-------->	d_out		
-	rd	-------->|______________|				
+	rd	-------->|______________|-------->      led				
 
 */
 
 input clk, rst, rd;
 input [9:0] addr_rd;       //Dirección de lectura
+input ena_led;
+output wire led;
 output reg [7:0] d_out;     //Dato de salida
+
+assign led = ena_led;
 
 reg [7:0] rom [0:1023];     // 1024-bit x 8-bit ROM
 

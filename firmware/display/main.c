@@ -28,6 +28,8 @@ int main(void){
         int32_t rojo, azul, verde;
         
         while(1){
+        on_led();
+        mSleep(3000);
         initPH(); 
         habilitar_PH_sensor();
         rojo = leer_rojo();
@@ -51,8 +53,11 @@ int main(void){
         print_char(00);
         set_position(80,6);
         print_entero_ascii(verde);              
-        mSleep(500);
+        mSleep(100);
+        off_led();
+        mSleep(2900);
         };
+   
         	
     	return 0;
 }

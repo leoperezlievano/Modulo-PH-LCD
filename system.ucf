@@ -13,5 +13,7 @@ NET "uart_txd" LOC = "P70";
 NET "scl"		LOC = "P80" | IOSTANDARD = LVCMOS33;
 NET "sda"		LOC = "P81" | IOSTANDARD = LVCMOS33;
 
+# ==== pH  ====
 
+NET "led_out"		LOC = "P82" | IOSTANDARD = LVCMOS33;
 

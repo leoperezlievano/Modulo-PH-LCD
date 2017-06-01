@@ -1,6 +1,17 @@
 `timescale 10ns / 10ps
 `define SIMULATION
 
+/*Wishbone Fuente 
+
+Register Description:
+Escritura		rd              //0x00
+			addr_rd 	//0x04
+			ena_led		//0x0C
+Lectura			d_out		//0x08
+			
+*/
+
+
 module wb_fuente_TB;
 
 	reg  clk;
@@ -15,7 +26,7 @@ module wb_fuente_TB;
 	reg       	[31:0] wb_dat_i;
 	wire  		[31:0] wb_dat_o;
    	
-   	wb_fuente test (clk, rst, wb_stb_i, wb_cyc_i, wb_ack_o, wb_we_i, wb_adr_i, wb_sel_i, wb_dat_i, wb_dat_o);
+   	wb_fuente test (clk, rst, wb_stb_i, wb_cyc_i, wb_ack_o, wb_we_i, wb_adr_i, wb_sel_i, wb_dat_i, wb_dat_o, led);
    	
 	always #1 clk = ~clk; 
 	
@@ -80,6 +91,17 @@ module wb_fuente_TB;
 		wb_stb_i = 1'b1;
 		wb_cyc_i = 1'b1;
 		wb_we_i  = 1'b0;
+		#4
+		wb_stb_i = 1'b0;
+		wb_cyc_i = 1'b0;
+		wb_we_i  = 1'b0;
+		#10
+		wb_dat_i = 32'h00000001;
+		wb_adr_i = 32'h0000000C;
+		#10
+		wb_stb_i = 1'b1;
+		wb_cyc_i = 1'b1;
+		wb_we_i  = 1'b1;
 		#4
 		wb_stb_i = 1'b0;
 		wb_cyc_i = 1'b0;
