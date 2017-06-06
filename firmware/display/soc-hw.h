@@ -319,7 +319,7 @@ void print_cadena_ascii(char* cadena);
 void print_entero_ascii(int numero);
 void print_wifi_hour(uint8_t hora, uint8_t minutos);
 void init_display(void);
-void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8_t ph);
+void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura);
 void password(uint8_t);
 void menu_display(void);
 
@@ -334,6 +334,7 @@ uint32_t leer_verde (void);
 uint32_t leer_azul (void);
 void on_led (void);
 void off_led (void);
+void nivelpH(void);
 
 /***************************************************************************
  * Pointer to actual components

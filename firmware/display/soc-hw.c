@@ -9,7 +9,6 @@ uart_t       	*uart0       	= (uart_t *)       	0x20000000;
 timerH_t     	*timer0   	= (timerH_t *)     	0x40000000;
 i2c_t	  	*i2c0		= (i2c_t *)		0x60000000;
 fuente_t    	*fuente0    	= (fuente_t*)      	0x80000000;
-//gpio_t       	*gpio0       	= (gpio_t *)       	0xA0000000;
 
 isr_ptr_t isr_table[32];
 
@@ -217,35 +216,6 @@ void sec_on_display(void){
         	data = fuente_read_data(addr+k);
         	send_command_display(DISPLAY_ADDR,data);
         };
-        /*send_command_display(DISPLAY_ADDR,0xAE); //OFF PANTALLA 
-	send_command_display(DISPLAY_ADDR,0X20); // MODO DE DIRECCIONAMIENTO
-	send_command_display(DISPLAY_ADDR,0x00);
-	send_command_display(DISPLAY_ADDR,0xB0); // CUADRAR DIRECCIÓN INICIAL DE PAGINA
-        send_command_display(DISPLAY_ADDR,0xC8); //OUTPUT SCAN COM DIRECTORY
-        send_command_display(DISPLAY_ADDR,0x00); // --- SET LOW COLUMN ADDR ADDRES       
-        send_command_display(DISPLAY_ADDR,0x10); // --- SET HIGH COLUMN ADDR
-        send_command_display(DISPLAY_ADDR,0x40); // --- SET STAR LINE ADDR
-        send_command_display(DISPLAY_ADDR,0x81); // SET CONTRAST
-        send_command_display(DISPLAY_ADDR,0x3F); //
-        send_command_display(DISPLAY_ADDR,0xA1); // SET SEGMENT RE-MAP. A1=addr 127 MAPPED
-        send_command_display(DISPLAY_ADDR,0xA6); // SET DISPLAY MODE. A6=NORMAL
-        send_command_display(DISPLAY_ADDR,0xA8); // SET MUX RATIO
-        send_command_display(DISPLAY_ADDR,0x3F);
-        send_command_display(DISPLAY_ADDR,0xA4); // OUTPUT RAM TO DISPLAY
-        //send_command_display(DISPLAY_ADDR,0xA5); // ENTIRE DISPLAY ON
-        send_command_display(DISPLAY_ADDR,0xD3); // DISPLAY OFFSET. 00= NO
-        send_command_display(DISPLAY_ADDR,0x00);
-        send_command_display(DISPLAY_ADDR,0xD5); //---SET DISPLAY CLOCK  DIVIDE RATIO /OSCILATOR
-        send_command_display(DISPLAY_ADDR,0xF0); //-- SET DIVIDE RATIO
-        send_command_display(DISPLAY_ADDR,0xD9); //SET PRE-CHARGUE PERIOD
-        send_command_display(DISPLAY_ADDR,0x22);
-        send_command_display(DISPLAY_ADDR,0xDA); //SET COM PINS 
-        send_command_display(DISPLAY_ADDR,0x12);
-        send_command_display(DISPLAY_ADDR,0xDB); //--SET VCOMH
-        send_command_display(DISPLAY_ADDR,0x20); //0x20,0.77xVcc
-        send_command_display(DISPLAY_ADDR,0x8D); //SET DC-DC ENABLE
-        send_command_display(DISPLAY_ADDR,0x14); 
-        send_command_display(DISPLAY_ADDR,0xAF); //ON PANTALLA*/
 };	
 
 
@@ -330,7 +300,7 @@ void init_display(void){
         };
 };
 
-void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8_t ph){
+void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura){
         print_wifi_hour(hora,minutos);
         set_position(4,1);
         print_char(98);
@@ -348,8 +318,12 @@ void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8
         set_position(4,4);
         print_char(105);
         print_char(106);
-        print_cadena_ascii("Nivel de PH: ");
-        print_entero_ascii(ph);        
+        print_cadena_ascii("Nivel PH: ");
+        nivelpH(); 
+        set_position(16,6);
+        print_cadena_ascii("Nivel comida: Alto");
+        set_position(16,7);
+        print_cadena_ascii("   Luz Blanca");     
 };
 
 
@@ -482,3 +456,63 @@ void on_led (void){
 void off_led (void){
 	fuente0->ena_led	= 0;
 };
+
+void nivelpH(void){
+	
+	uint8_t bandera = 0;	
+	uint32_t rojo, azul, verde;	
+	
+	initPH(); 			//Lectura de color en el sensor de pH
+	habilitar_PH_sensor();
+	rojo = leer_rojo();
+	azul = leer_azul();
+	verde = leer_verde();
+	
+	if(((rojo >= 22) && (rojo <= 24)) && ((azul >= 18) && (azul <= 20)) && ((verde >= 24) && (verde <= 26))){		//5.8 - 6.2
+		print_char(21);
+		print_char(14);
+		print_char(24);
+		print_char(13);
+		print_char(22);
+		print_char(14);
+		print_char(18);
+		print_char(00);
+		bandera = 1;
+	}
+	if(((rojo >= 20) && (rojo <= 24)) && ((azul >= 17) && (azul <= 21)) && ((verde >= 20) && (verde <= 23))){		//6.6 - 7.0
+		print_char(22);
+		print_char(14);
+		print_char(22);
+		print_char(13);		
+		print_char(23);
+		print_char(14);
+		print_char(16);
+		print_char(00);
+		bandera = 1;
+	}
+	if(((rojo >= 17) && (rojo <= 20)) && ((azul >= 14) && (azul <= 18)) && ((verde >= 15) && (verde <= 17))){		//7.4 - 7.8
+		print_char(23);
+		print_char(14);
+		print_char(20);
+		print_char(13);
+		print_char(23);
+		print_char(14);
+		print_char(24);
+		print_char(00);
+		bandera = 1;
+	}	
+	if(((rojo >= 15) && (rojo <= 16)) && ((azul >= 17) && (azul <= 18)) && ((verde >= 15) && (verde <= 16))){		//8.0 - 8.2
+		print_char(24);
+		print_char(14);
+		print_char(16);
+		print_char(13);
+		print_char(24);
+		print_char(14);
+		print_char(18);
+		print_char(00);
+		bandera = 1;
+	}
+	if(bandera == 0){
+		print_cadena_ascii("Cargando");
+	}	
+}
