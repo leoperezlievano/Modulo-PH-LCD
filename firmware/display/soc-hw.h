@@ -332,7 +332,6 @@ void habilitar_PH_sensor (void);
 uint32_t leer_rojo (void);
 uint32_t leer_verde (void);
 uint32_t leer_azul (void);
-void ver_entero_consola(uint32_t numero);
 void on_led (void);
 void off_led (void);
 

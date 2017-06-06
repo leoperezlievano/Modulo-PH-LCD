@@ -158,4 +158,4 @@ clean:
 config: $(DESIGN).bit
 	scp $(DESIGN).bit $(USER)@$(IP):/home/pi
 	ssh $(USER)@$(IP) sudo xc3sprog -c matrix_pi $(DESIGN).bit -p 1
-
+#####   ssh pi@$193.168.43.222 sudo xc3sprog -c matrix_pi system.bit -p 1

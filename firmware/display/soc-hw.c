@@ -384,7 +384,7 @@ void principal_display(uint8_t hora, uint8_t minutos, uint8_t temperatura, uint8
           int8_t ctrl; int8_t val;
           ctrl=i2c_read(0x39,APDS9960_CONTROL);
           ctrl&=0x30;//00110000;//00xx0000 salvo lo que tenia en xx
-          val =0x9;//  00001001;
+          val =0x0B;//  00001011;
           ctrl|=val;
           i2c_write(0x39,APDS9960_CONTROL,ctrl);          
 
@@ -473,18 +473,6 @@ uint32_t leer_azul (void){
   uint32_t B = (BL) + (BH * 0xFF);
 
   return B;
-};
-
-void ver_entero_consola(uint32_t numero){
-    uint8_t c = numero;
-    uint8_t contador = 1; 
-     while(c/10>0){
-        c=c/10;
-        contador++;
-    };
-    char buffer[contador];
-    itoa(numero,buffer);
-    uart_putstr(buffer);
 };
 
 void on_led (void){
